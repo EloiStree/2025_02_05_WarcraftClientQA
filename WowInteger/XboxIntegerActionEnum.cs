@@ -1,9 +1,6 @@
 ﻿
 
 
-
-
-
 /// <summary>
 /// Reference of the integer of the keyboard.
 /// It allows to give a request of what to do on the remote computer.

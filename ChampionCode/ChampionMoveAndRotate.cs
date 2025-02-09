@@ -1,9 +1,8 @@
 ﻿
 
-
-
-
-
+/// <summary>
+/// This class give tool to compute angle rotation and distance move.
+/// </summary>
 public class ChampionMoveAndRotate {
     public static float m_speedHorizontalPerSecond = 7;
     public static float m_speedVerticalForwardPerSecond = 7;
@@ -14,7 +13,10 @@ public class ChampionMoveAndRotate {
     {
         walkDelayInSeconds = distance / m_speedVerticalForwardPerSecond;
     }
-
+    public static void Move(float distance, float speed, out float walkDelayInSeconds)
+    {
+        walkDelayInSeconds = distance / speed;
+    }
     public static void MoveBackward(float distance, out float walkDelayInSeconds)
     {
         walkDelayInSeconds = distance / m_speedVerticalBackwarPerSecond;
@@ -27,47 +29,65 @@ public class ChampionMoveAndRotate {
     {
         rotateDelayInSeconds = angle / m_rotationAngleSpeedPerSecond;
     }
+    public static void Rotate(float angle, float angleSpeed, out float rotateDelayInSeconds)
+    {
+        rotateDelayInSeconds = angle / angleSpeed;
+    }
 
-    public static void MoveForward(Champion champion, float distance)
+    public static void MoveForward(ChampionThread champion, float distance)
     {
         MoveForward(distance, out float walkDelayInSeconds);
-        champion.StartForward();
+        champion.StartMovingForward();
         champion.WaitSomeSeconds(walkDelayInSeconds);
         champion.StopMovingForward();
 
     }
 
-    public static void MoveBackward(Champion champion, float distance)
+    public static void MoveBackward(ChampionThread champion, float distance)
     {
         MoveBackward(distance, out float walkDelayInSeconds);
         champion.StartMovingBackward();
         champion.WaitSomeSeconds(walkDelayInSeconds);
         champion.StopMovingBackward();
     }
-    public static void MoveLeft(Champion champion, float distance)
+    public static void MoveLeft(ChampionThread champion, float distance)
     {
         MoveHorizontal(distance, out float walkDelayInSeconds);
-        champion.StartMovingLeft();
+        champion.StartStrafeLeft();
         champion.WaitSomeSeconds(walkDelayInSeconds);
-        champion.StopMovingLeft();
+        champion.StopStrafeLeft();
     }
-    public static void MoveRight(Champion champion, float distance)
+    public static void MoveRight(ChampionThread champion, float distance)
     {
         MoveHorizontal(distance, out float walkDelayInSeconds);
-        champion.StartMovingRight();
+        champion.StartStrafeRight();
         champion.WaitSomeSeconds(walkDelayInSeconds);
-        champion.StopMovingRight();
+        champion.StopStrafeRight();
     }
-    public static void Rotate(Champion champion, float angle)
+    public static void Rotate(ChampionThread champion, float angle)
     {
         Rotate(angle, out float rotateDelayInSeconds);
-        champion.StartRotateLeft();
-        champion.WaitSomeSeconds(rotateDelayInSeconds);
-        champion.StopRotateLeft();
+        float absRotate = Math.Abs(rotateDelayInSeconds);
+        if (angle > 0)
+        {
+            champion.StartRotateRight();
+            champion.WaitSomeSeconds(absRotate);
+            champion.StopRotateRight();
+        }
+        else if (angle == 0)
+        {
+            // do nothing
+        }
+        else
+        {
+            champion.StartRotateLeft();
+            champion.WaitSomeSeconds(absRotate);
+            champion.StopRotateLeft();
+        }
     }
 
 
-    public static void TestMovingInSquare(Champion champion, float distanceEdge)
+    public static void TestMovingInSquare(ChampionThread champion, float distanceEdge)
     {
         for (int i = 0; i < 4; i++)
         {
@@ -80,7 +100,7 @@ public class ChampionMoveAndRotate {
     }
 
 
-    public static void TestRotation90And360(Champion champion) {
+    public static void TestRotation90And360(ChampionThread champion) {
 
         for (int i = 0; i < 4; i++)
         {

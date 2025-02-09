@@ -9,9 +9,13 @@ public class MessageQueueDelayerTask
     private readonly ConcurrentQueue<TimestampStringCommandAction> m_messageQueue;
     private readonly CancellationTokenSource m_cancelToken;
     private readonly Task m_backgroundTask;
+    public bool m_useConsoleLog = false;
 
-    public MessageQueueDelayerTask()
+    public MessageQueueDelayerTask(bool useConsoleLog)
     {
+        if (useConsoleLog)
+            m_useConsoleLog = true;
+
         m_messageQueue = new ConcurrentQueue<TimestampStringCommandAction>();
         m_cancelToken = new CancellationTokenSource();
         m_backgroundTask = Task.Run(() => ProcessMessages(m_cancelToken.Token));
@@ -64,6 +68,18 @@ public class MessageQueueDelayerTask
     {
         m_handleReadyCommand.Remove(handleReadyCommand);
     }
+
+    public List<Action<ChampionThread, object>> m_handlerReadyChampInfo= new List<Action<ChampionThread, object>>();
+    public void AddChampionInfoListener(Action<ChampionThread, object> handleReadyChampInfo)
+    {
+        m_handlerReadyChampInfo.Add(handleReadyChampInfo);
+    }
+    public void RemoveChampionInfoListener(Action<ChampionThread, object> handleReadyChampInfo)
+    {
+        m_handlerReadyChampInfo.Remove(handleReadyChampInfo);
+    }
+
+
     public void PushToListener(string command)
     {
 

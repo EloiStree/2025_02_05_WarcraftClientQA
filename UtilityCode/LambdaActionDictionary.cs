@@ -4,7 +4,7 @@
         // https://www.programiz.com/csharp-programming/lambda-expression#:~:text=C%23%20Lambda%20Expression%20is%20a,%2C%20num%20%3D>%20num%20*%207
 
         public Dictionary<string, Action> m_simpleActionRegister = new Dictionary<string, Action>();
-        public Dictionary<string, Action<Champion, object>> m_specificRegister = new Dictionary<string, Action<Champion, object>>();
+        public Dictionary<string, Action<ChampionThread, object>> m_actionWithParameterRegister = new Dictionary<string, Action<ChampionThread, object>>();
 
         public void AddSimpleAction(string exactLabel, Action action)
         {
@@ -30,25 +30,26 @@
                 found = false;
             }
         }
-        public void AddActionTool(string exactLabel, Action<Champion, object> action)
+
+
+        public void AddChampionWithInfoAction(string exactLabel, Action<ChampionThread, object> action)
         {
 
-            if (m_specificRegister.ContainsKey(exactLabel))
+            if (m_actionWithParameterRegister.ContainsKey(exactLabel))
             {
-                m_specificRegister[exactLabel] = action;
+                m_actionWithParameterRegister[exactLabel] = action;
             }
             else
             {
-                m_specificRegister.Add(exactLabel, action);
+                m_actionWithParameterRegister.Add(exactLabel, action);
             }
         }
-        public void ExecuteIfExistActionTool(string exactLabel, Champion target, object parameter, out bool found)
+        public void ExecuteIfExistActionTool(string exactLabel, ChampionThread target, object parameter, out bool found)
         {
-            if (m_specificRegister.ContainsKey(exactLabel))
+            if (m_actionWithParameterRegister.ContainsKey(exactLabel))
             {
-                m_specificRegister[exactLabel](target, parameter);
+                m_actionWithParameterRegister[exactLabel](target, parameter);
                 found = true;
-
             }
             else
             {

@@ -1,11 +1,4 @@
-﻿
-
-
-
-
-using XboxClientQA.Pickup;
-
-public partial class ChampionThread {
+﻿public partial class ChampionThread {
 
     public PushIntegerToGameUDP m_sender;
     public ChampionThread(PushIntegerToGameUDP push)
@@ -71,14 +64,15 @@ public partial class ChampionThread {
     public void WaitSomeSeconds(float seconds) => Thread.Sleep((int)(seconds*1000f));
     public void PressKey(int keyCode) => m_sender.PushInteger(keyCode);
     public void ReleaseKey(int keyCode) => m_sender.PushInteger(keyCode+1000);
-    public void PressReleaseWithDelay(int keycode, float delayBetweenInSeconds, float delayAfterInSeconds)
+    
+    public void PressReleaseWithDelayForSeconds(int keycode, float delayBetweenInSeconds, float delayAfterInSeconds)
     {
         PressKey(keycode);
         WaitSomeSeconds(delayBetweenInSeconds);
         ReleaseKey(keycode);
         WaitSomeSeconds(delayAfterInSeconds);
     }
-    public void PressReleaseWithDelay(int keycode, int delayBetweenInMilliseconds, int delayAfterInMilliseconds)
+    public void PressReleaseWithDelayForMilliseconds(int keycode, int delayBetweenInMilliseconds, int delayAfterInMilliseconds)
     {
         PressKey(keycode);
         WaitSomeMilliseconds(delayBetweenInMilliseconds);
@@ -91,43 +85,86 @@ public partial class ChampionThread {
         WaitFrame();
         ReleaseKey(keyCode);
     }
+    public void StartJumpFor(float delayInSeconds)=> PressReleaseWithDelayForSeconds(m_jump, delayInSeconds, 0);
+    public void StartJumpFor(int delayInMilliseconds) => PressReleaseWithDelayForMilliseconds(m_jump, delayInMilliseconds, 0);
     public void StartJump() => PressKey(m_jump);
     public void StopJump() => ReleaseKey(m_jump);
 
+    public void StartMovingForwardFor(float delayInSeconds) => PressReleaseWithDelayForSeconds(m_moveHorizontalForward, delayInSeconds, 0);
+    public void StartMovingForwardFor(int delayInMilliseconds) => PressReleaseWithDelayForMilliseconds(m_moveHorizontalForward, delayInMilliseconds, 0);
     public void StartMovingForward() => PressKey(m_moveHorizontalForward);
     public void StopMovingForward() => ReleaseKey(m_moveHorizontalForward);
 
+    public void StartMovingBackwardFor(float delayInSeconds) => PressReleaseWithDelayForSeconds(m_moveHorizontalBackward, delayInSeconds, 0);
+    public void StartMovingBackwardFor(int delayInMilliseconds) => PressReleaseWithDelayForMilliseconds(m_moveHorizontalBackward, delayInMilliseconds, 0);
     public void StartMovingBackward() => PressKey(m_moveHorizontalBackward);
     public void StopMovingBackward() => ReleaseKey(m_moveHorizontalBackward);
 
+    public void StartStrafeLeftFor(float delayInSeconds) => PressReleaseWithDelayForSeconds(m_strafeLeftKey, delayInSeconds, 0);
+    public void StartStrafeLeftFor(int delayInMilliseconds) => PressReleaseWithDelayForMilliseconds(m_strafeLeftKey, delayInMilliseconds, 0);
     public void StartStrafeLeft() => PressKey(m_strafeLeftKey);
     public void StopStrafeLeft() => ReleaseKey(m_strafeLeftKey);
 
+    public void StartStrafeRightFor(float delayInSeconds) => PressReleaseWithDelayForSeconds(m_strafeRightKey, delayInSeconds, 0);
+    public void StartStrafeRightFor(int delayInMilliseconds) => PressReleaseWithDelayForMilliseconds(m_strafeRightKey, delayInMilliseconds, 0);
     public void StartStrafeRight() => PressKey(m_strafeRightKey);
     public void StopStrafeRight() => ReleaseKey(m_strafeRightKey);
 
+    public void StartRotateLeftFor(float delayInSeconds) => PressReleaseWithDelayForSeconds(m_rotateLeft, delayInSeconds, 0);
+    public void StartRotateLeftFor(int delayInMilliseconds) => PressReleaseWithDelayForMilliseconds(m_rotateLeft, delayInMilliseconds, 0);
     public void StartRotateLeft() => PressKey(m_rotateLeft);
     public void StopRotateLeft() => ReleaseKey(m_rotateLeft);
 
+    public void StartRotateRightFor(float delayInSeconds) => PressReleaseWithDelayForSeconds(m_rotateRight, delayInSeconds, 0);
+    public void StartRotateRightFor(int delayInMilliseconds) => PressReleaseWithDelayForMilliseconds(m_rotateRight, delayInMilliseconds, 0);
     public void StartRotateRight() => PressKey(m_rotateRight);
     public void StopRotateRight() => ReleaseKey(m_rotateRight);
 
-    public void StartEnter()=>PressKey(m_enter);
-    public void StopEnter()=>ReleaseKey(m_enter);
 
+    public void SartMovingUpwardFor(float delayInSeconds) => PressReleaseWithDelayForSeconds(m_moveVerticalUp, delayInSeconds, 0);
+    public void StartMovingUpwardFor(int delayInMilliseconds) => PressReleaseWithDelayForMilliseconds(m_moveVerticalUp, delayInMilliseconds, 0);
     public void StartMovingUpward() => PressKey(m_moveVerticalUp);
     public void StopMovingUpward() => PressKey(m_moveVerticalUp);
 
+    public void StartMovingDownwardFor(float delayInSeconds) => PressReleaseWithDelayForSeconds(m_moveVerticalDown, delayInSeconds, 0);
+    public void StartMovingDownwardFor(int delayInMilliseconds) => PressReleaseWithDelayForMilliseconds(m_moveVerticalDown, delayInMilliseconds, 0);
     public void StartMovingDownward() => PressKey(m_moveVerticalDown);
     public void StopMovingDownward() => ReleaseKey(m_moveVerticalDown);
 
+    public void StartPitchUpFor(float delayInSeconds) => PressReleaseWithDelayForSeconds(m_pitchUp, delayInSeconds, 0);
+    public void StartPitchUpFor(int delayInMilliseconds) => PressReleaseWithDelayForMilliseconds(m_pitchUp, delayInMilliseconds, 0);
     public void StartPitchUp() => PressKey(m_pitchUp);
     public void StopPitchUp() => ReleaseKey(m_pitchUp);
 
+    public void StartPitchDownFor(float delayInSeconds) => PressReleaseWithDelayForSeconds(m_pitchDown, delayInSeconds, 0);
+    public void StartPitchDownFor(int delayInMilliseconds) => PressReleaseWithDelayForMilliseconds(m_pitchDown, delayInMilliseconds, 0);
     public void StartPitchDown() => PressKey(m_pitchDown);
     public void StopPitchDown() => ReleaseKey(m_pitchDown);
 
 
+
+
+    public void RotateToWest(float current)
+    {
+
+        if (current > 270f)
+            current -= 360f;
+        if (current < 90)
+        {
+
+            RotationForLeftRightAngle(-(90f - current));
+        }
+        else if (current > 90 && current < 270)
+        {
+            RotationForLeftRightAngle(current - 90f);
+        }
+    }
+    
+
+
+
+    public void StartEnter()=>PressKey(m_enter);
+    public void StopEnter()=>ReleaseKey(m_enter);
 
     public void TapOpenChat() => TapKey(m_openChat);
     public void TapMap() => TapKey(WowIntegerKeyboard.KeyM);
@@ -403,16 +440,16 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
     public float m_speedMoveDown = 4f;
     public float m_rotationAngle = 180f;
     public float m_pitchAngle = 180f;
-    public void AngleForRotationLeftRightAngle(float degreeToRotateLeftToRight)
+    public void RotationForLeftRightAngle(float degreeToRotateLeftToRight)
     {
         ChampionMoveAndRotate.Rotate(degreeToRotateLeftToRight, m_rotationAngle, out float timeToRotate);
         if (degreeToRotateLeftToRight < 0)
         {
-            PressReleaseWithDelay(m_rotateLeft,Math.Abs( timeToRotate),0);
+            PressReleaseWithDelayForSeconds(m_rotateLeft,Math.Abs( timeToRotate),0);
         }
         else if (degreeToRotateLeftToRight > 0)
         {
-            PressReleaseWithDelay(m_rotateRight, Math.Abs(timeToRotate), 0);
+            PressReleaseWithDelayForSeconds(m_rotateRight, Math.Abs(timeToRotate), 0);
 
         }
     }
@@ -422,26 +459,26 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         if (distance > 0f)
         {
             ChampionMoveAndRotate.Move(distance, m_speedMoveLeftUpRight, out  timeToMove);
-            PressReleaseWithDelay(m_moveHorizontalForward, Math.Abs(timeToMove), 0);
+            PressReleaseWithDelayForSeconds(m_moveHorizontalForward, Math.Abs(timeToMove), 0);
         }
         else if (distance < 0f)
         {
             ChampionMoveAndRotate.Move(distance, m_speedMoveDown, out timeToMove);
-            PressReleaseWithDelay(m_moveHorizontalBackward, Math.Abs(timeToMove), 0);
+            PressReleaseWithDelayForSeconds(m_moveHorizontalBackward, Math.Abs(timeToMove), 0);
         
         }
 
     }
 
-    public void PitchBotToTop(float degreeToRotateBotTop) {
+    public void PitchBotToTopAngle(float degreeToRotateBotTop) {
         ChampionMoveAndRotate.Rotate(degreeToRotateBotTop, m_rotationAngle, out float timeToRotate);
         if (degreeToRotateBotTop < 0)
         {
-            PressReleaseWithDelay(m_pitchDown, Math.Abs(timeToRotate), 0);
+            PressReleaseWithDelayForSeconds(m_pitchDown, Math.Abs(timeToRotate), 0);
         }
         else if (degreeToRotateBotTop > 0)
         {
-            PressReleaseWithDelay(m_pitchUp, Math.Abs(timeToRotate), 0);
+            PressReleaseWithDelayForSeconds(m_pitchUp, Math.Abs(timeToRotate), 0);
 
         }
     }
@@ -452,181 +489,69 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         if (distance > 0f)
         {
             ChampionMoveAndRotate.Move(distance, m_speedMoveLeftUpRight, out timeToMove);
-            PressReleaseWithDelay(m_strafeRightKey, Math.Abs(timeToMove), 0);
+            PressReleaseWithDelayForSeconds(m_strafeRightKey, Math.Abs(timeToMove), 0);
         }
         else if (distance < 0f)
         {
             ChampionMoveAndRotate.Move(distance, m_speedMoveLeftUpRight, out timeToMove);
-            PressReleaseWithDelay(m_strafeLeftKey, Math.Abs(timeToMove), 0);
+            PressReleaseWithDelayForSeconds(m_strafeLeftKey, Math.Abs(timeToMove), 0);
 
         }
     }
+
+    internal void TapPower(int indexOfPower0To9)
+    {
+        switch (indexOfPower0To9)
+        {
+            case 1: TapPower1(); break;
+            case 2: TapPower2(); break;
+            case 3: TapPower3(); break;
+            case 4: TapPower4(); break;
+            case 5: TapPower5(); break;
+            case 6: TapPower6(); break;
+            case 7: TapPower7(); break;
+            case 8: TapPower8(); break;
+            case 9: TapPower9(); break;
+            case 0: TapPower0(); break;
+            default:
+                break;
+        }
+    }
+
+    internal void TapF1To12(int indexFunction1To12)
+    {
+        switch (indexFunction1To12)
+        {
+            case 1: TapF1(); break;
+            case 2: TapF2(); break;
+            case 3: TapF3(); break;
+            case 4: TapF4(); break;
+            case 5: TapF5(); break;
+            case 6: TapF6(); break;
+            case 7: TapF7(); break;
+            case 8: TapF8(); break;
+            case 9: TapF9(); break;
+            case 10: TapF10(); break;
+            case 11: TapF11(); break;
+            case 12: TapF12(); break;
+            default:
+                break;
+        }
+    }
+
+
+
+
+    public void RotateToAngle(float targetAngle, float currentAngle)
+    {
+        throw new NotImplementedException();
+    }
+
 }
 
 
-public class ChampionThreadMapping {
-        
-
-    public static void LoadDefaultKeyToAction(ChampionThread champion) {
-        champion.RegisterAction("Q", () => champion.StartRotateLeft());
-        champion.RegisterAction("q", () => champion.StopRotateLeft());
-        champion.RegisterAction("q.", () => champion.TapKey(champion.m_rotateLeft));
-        champion.RegisterAction("D", () => champion.StartRotateRight());
-        champion.RegisterAction("d", () => champion.StopRotateRight());
-        champion.RegisterAction("d.", () => champion.TapKey(champion.m_rotateRight));
-        champion.RegisterAction("Z", () => champion.StartMovingForward());
-        champion.RegisterAction("z", () => champion.StopMovingForward());
-        champion.RegisterAction("z.", () => champion.TapKey(champion.m_moveHorizontalForward));
-        champion.RegisterAction("S", () => champion.StartMovingBackward());
-        champion.RegisterAction("s", () => champion.StopMovingBackward());
-        champion.RegisterAction("s.", () => champion.TapKey(champion.m_moveHorizontalBackward));
-        champion.RegisterAction("W", () => champion.StartStrafeLeft());
-        champion.RegisterAction("w", () => champion.StopStrafeLeft());
-        champion.RegisterAction("w.", () => champion.TapKey(champion.m_strafeLeftKey));
-        champion.RegisterAction("X", () => champion.StartStrafeRight());
-        champion.RegisterAction("x", () => champion.StopStrafeRight());
-        champion.RegisterAction("x.", () => champion.TapKey(champion.m_strafeRightKey));
-
-        champion.RegisterAction("C", () => champion.StartMovingDownward());
-        champion.RegisterAction("c", () => champion.StopMovingDownward());
-        champion.RegisterAction("c.", () => champion.TapKey(champion.m_moveVerticalDown));
 
 
-        champion.RegisterAction("F", () => champion.PressKey(champion.m_interactWithTarget));
-        champion.RegisterAction("f", () => champion.ReleaseKey(champion.m_interactWithTarget));
-        champion.RegisterAction("f.", () => champion.TapKey(champion.m_interactWithTarget));
-        champion.RegisterAction("M", () => champion.PressKey(champion.m_map));
-        champion.RegisterAction("m", () => champion.ReleaseKey(champion.m_map));
-        champion.RegisterAction("m.", () => champion.TapKey(champion.m_map));
-        champion.RegisterAction("J", () => champion.StartJump());
-        champion.RegisterAction("j", () => champion.StopJump());
-        champion.RegisterAction("j.", () => champion.TapJump());
-        champion.RegisterAction("p1", () => champion.TapPower1());
-        champion.RegisterAction("p2", () => champion.TapPower2());
-        champion.RegisterAction("p3", () => champion.TapPower3());
-        champion.RegisterAction("p4", () => champion.TapPower4());
-        champion.RegisterAction("p5", () => champion.TapPower5());
-        champion.RegisterAction("p6", () => champion.TapPower6());
-        champion.RegisterAction("p7", () => champion.TapPower7());
-        champion.RegisterAction("p8", () => champion.TapPower8());
-        champion.RegisterAction("p9", () => champion.TapPower9());
-        champion.RegisterAction("p0", () => champion.TapPower0());
-        champion.RegisterAction("f1", () => champion.TapF1());
-        champion.RegisterAction("f2", () => champion.TapF2());
-        champion.RegisterAction("f3", () => champion.TapF3());
-        champion.RegisterAction("f4", () => champion.TapF4());
-        champion.RegisterAction("f5", () => champion.TapF5());
-        champion.RegisterAction("f6", () => champion.TapF6());
-        champion.RegisterAction("f7", () => champion.TapF7());
-        champion.RegisterAction("f8", () => champion.TapF8());
-        champion.RegisterAction("f9", () => champion.TapF9());
-        champion.RegisterAction("f10", () => champion.TapF10());
-        champion.RegisterAction("f11", () => champion.TapF11());
-        champion.RegisterAction("f12", () => champion.TapF12());
-        champion.RegisterAction("backspace", () => champion.TapBackSpace());
-        champion.RegisterAction("delete", () => champion.TapDelete());
-        champion.RegisterAction("home", () => champion.TapKey(WowIntegerKeyboard.Home));
-        champion.RegisterAction("end", () => champion.TapKey(WowIntegerKeyboard.End));
-        champion.RegisterAction("insert", () => champion.TapKey(WowIntegerKeyboard.Insert));
-        champion.RegisterAction("enter", () => champion.TapKey(WowIntegerKeyboard.Enter));
-        champion.RegisterAction("space", () => champion.TapKey(WowIntegerKeyboard.Space));
-        champion.RegisterAction("tab", () => champion.TapKey(WowIntegerKeyboard.Tab));
-        champion.RegisterAction("au", () => champion.TapKey(WowIntegerKeyboard.ArrowUp));
-        champion.RegisterAction("ad", () => champion.TapKey(WowIntegerKeyboard.ArrowDown));
-        champion.RegisterAction("al", () => champion.TapKey(WowIntegerKeyboard.ArrowLeft));
-        champion.RegisterAction("ar", () => champion.TapKey(WowIntegerKeyboard.ArrowRight));
-        champion.RegisterAction("pageup", () => champion.TapKey(WowIntegerKeyboard.PageUp));
-        champion.RegisterAction("pagedown", () => champion.TapKey(WowIntegerKeyboard.PageDown));
-        champion.RegisterAction("oem1", () => champion.TapKey(WowIntegerKeyboard.Oem1));
-        champion.RegisterAction("oem102", () => champion.TapKey(WowIntegerKeyboard.Oem102));
-        champion.RegisterAction("oem2", () => champion.TapKey(WowIntegerKeyboard.Oem2));
-        champion.RegisterAction("oem3", () => champion.TapKey(WowIntegerKeyboard.Oem3));
-        champion.RegisterAction("oem4", () => champion.TapKey(WowIntegerKeyboard.Oem4));
-        champion.RegisterAction("oem5", () => champion.TapKey(WowIntegerKeyboard.Oem5));
-        champion.RegisterAction("oem6", () => champion.TapKey(WowIntegerKeyboard.Oem6));
-        champion.RegisterAction("oem7", () => champion.TapKey(WowIntegerKeyboard.Oem7));
-        champion.RegisterAction("oem8", () => champion.TapKey(WowIntegerKeyboard.Oem8));
-        champion.RegisterAction("oemcomma", () => champion.TapKey(WowIntegerKeyboard.OemComma));
-        champion.RegisterAction("oemminus", () => champion.TapKey(WowIntegerKeyboard.OemMinus));
-        champion.RegisterAction("oemperiod", () => champion.TapKey(WowIntegerKeyboard.OemPeriod));
-        champion.RegisterAction("oemplus", () => champion.TapKey(WowIntegerKeyboard.OemPlus));
-        champion.RegisterAction("dance", () => champion.WriteAlpahNumericalCommand("dance"));
-        champion.RegisterAction("stop", () => champion.StopReleaseKey());
-        champion.RegisterAction("jump", () => champion.TapJump());
-        champion.RegisterAction("focus", () => {
-            champion.RequestWindowFocus();
-        });
-    }
 
-    public static void AddInterpreterRMSP(ChampionThread champion)
-    {
-        champion.AddInterpreter((command) =>
-        {
-            switch (command)
-            {
-                case "Hello":
-                    Console.WriteLine("Hello World !!!");
-                    return;
-            }
 
-            if (command.StartsWith("R:"))
-            {
-                Console.WriteLine("Rotate " + command);
-                string[] parts = command.Split(':');
-                if (parts.Length == 2 && float.TryParse(parts[1], out float degree))
-                {
-                    champion.AngleForRotationLeftRightAngle(degree);
-                }
-            }
-            else if (command.StartsWith("M:"))
-            {
-                Console.WriteLine("Move " + command);
-                string[] parts = command.Split(':');
-                if (parts.Length == 2 && float.TryParse(parts[1], out float distance))
-                {
-                    champion.MoveForDistance(distance);
-                }
-            }
-            else if (command.StartsWith("S:"))
-            {
-                Console.WriteLine("Strafe " + command);
-                string[] parts = command.Split(':');
-                if (parts.Length == 2 && float.TryParse(parts[1], out float distance))
-                {
-                    champion.StrafeMove(distance);
-                }
-            }
-            else if (command.StartsWith("P:"))
-            {
-                Console.WriteLine("Pitch " + command);
-                string[] parts = command.Split(':');
-                if (parts.Length == 2 && float.TryParse(parts[1], out float distance))
-                {
-                    champion.PitchBotToTop(distance);
-                }
-            }
-        });
 
-    }
-
-    public static void LoadInColorPickingCommand(ChampionThread champion, ColorPickerRefreshTimer colorPicker)
-    {
-        champion.RegisterAction("color", () =>
-        {
-            Console.WriteLine("Set Color Picker Position");
-            colorPicker.FetchPositionFromConsole();
-        });
-        champion.RegisterAction("position", () => {
-
-            colorPicker.DipslayPositionInConsole();
-        });
-    }
-
-    public static void HideAddCode(ChampionThread champion, ColorPickerRefreshTimer colorPicker)
-    {
-        ChampionThreadMapping.LoadDefaultKeyToAction(champion);
-        ChampionThreadMapping.LoadInColorPickingCommand(champion, colorPicker);
-        ChampionThreadMapping.AddInterpreterRMSP(champion);
-
-    }
-}

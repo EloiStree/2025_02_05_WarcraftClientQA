@@ -1,14 +1,13 @@
 ﻿using System.Globalization;
 using System.Net;
 using XboxClientQA.Pickup;
+using XboxClientQA.StudentCode;
 using XboxClientQA.TDD;
 
 public class Program {
-
-
-
     public static void Main(string[] args)
     {
+        StudentProgram.StudentMain(args);
 
         // Ciblé l'ordinateur
         string address = "127.0.0.1";

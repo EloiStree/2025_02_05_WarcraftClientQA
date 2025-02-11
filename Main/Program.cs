@@ -3,11 +3,13 @@ using System.Net;
 using XboxClientQA.Pickup;
 using XboxClientQA.StudentCode;
 using XboxClientQA.TDD;
+using XboxClientQA.TeacherCode;
 
 public class Program {
     public static void Main(string[] args)
     {
         StudentProgram.StudentMain(args);
+        TeacherProgram.TeacherMain(args);
 
         // Ciblé l'ordinateur
         string address = "127.0.0.1";
@@ -16,7 +18,6 @@ public class Program {
         // Ciblé l'index de la fenêtre de jeu
         int playerIndex = 0;
         ChampionThread champion = new ChampionThread(address, port, playerIndex);
-
         // AJOUTER VOTRE COE ICI
 
     }

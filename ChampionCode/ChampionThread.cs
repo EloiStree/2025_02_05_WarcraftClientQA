@@ -1,4 +1,32 @@
-﻿public partial class ChampionThread {
+﻿
+using System.Numerics;
+
+//public class WowCalculator {
+
+//    public static float m_defaultSpeedMove = 6.5f;
+//    public bool m_isScience = false;
+//    public float m_speedMove = 7f;
+
+//    public float  MoveForSeconds(float distance) {
+//        return distance / m_speedMove;
+//        //throw new NotImplementedException("Sorry");
+
+//    }
+//    public float[] MoveForSeconds(float distance, float acceleration)
+//    {
+//       // throw new NotImplementedException("No idea what I am doing");
+//        return new float[2];
+
+//    }
+//    public void Multiply(Vector2 point,float value, 
+//        out float x, out float y)
+//    {
+//        x = point.X*value;
+//        y = point.Y*value;
+//    }
+//}
+
+public partial class ChampionThread {
 
     public PushIntegerToGameUDP m_sender;
     public ChampionThread(PushIntegerToGameUDP push)
@@ -60,11 +88,21 @@
     public int m_frameMilliseconds=50;
 
     public void WaitFrame()=>Thread.Sleep(m_frameMilliseconds);
-    public void WaitOneSeconds() => Thread.Sleep(1000);
+    public void WaitOneSeconds() { Thread.Sleep(1000); }
     public void WaitSomeSeconds(float seconds) => Thread.Sleep((int)(seconds*1000f));
     public void PressKey(int keyCode) => m_sender.PushInteger(keyCode);
     public void ReleaseKey(int keyCode) => m_sender.PushInteger(keyCode+1000);
-    
+
+
+    public void Ping() {
+        for (int i = 0; i < 10; i++)
+        {
+            TapJump();
+            WaitSomeMilliseconds(500);
+        }
+    }
+
+
     public void PressReleaseWithDelayForSeconds(int keycode, float delayBetweenInSeconds, float delayAfterInSeconds)
     {
         PressKey(keycode);

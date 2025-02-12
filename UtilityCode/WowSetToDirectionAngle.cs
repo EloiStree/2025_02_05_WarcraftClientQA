@@ -9,7 +9,7 @@ namespace XboxClientQA.UtilityCode
     public class WowSetToDirectionAngle
     {
 
-        public static void GetTimeToRotateFromTo(float fromAngle, float toAngle, out bool goLeft, out float angleToRotate)
+        public static void GetRotationFromTo(float fromAngle, float toAngle, out bool goLeft, out float angleToRotate)
         {
             float bigAngle = fromAngle;
             float smallAngle = toAngle;

@@ -1,13 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using XboxClientQA.UtilityCode;
 
 namespace XboxClientQA.TeacherCode.CoordinateWow
 {
+
+    public class ConsoleWowCoord { 
+    
+    
+        public static void AskForPosition(out WowCoord current)
+        {
+            try { 
+            Console.WriteLine("Enter your current position");
+            Console.WriteLine("Enter X:");
+            float x = float.Parse(Console.ReadLine());
+            Console.WriteLine("Enter Y:");
+            float y = float.Parse(Console.ReadLine());
+            Console.WriteLine("Enter Angle:");
+            float angle = float.Parse(Console.ReadLine());
+            current = new WowCoord(x, y, angle);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+                current = new WowCoord();
+            }
+        }
+        public static void AskForDirectionInfo(
+            out WowCoord origin,
+            out WowCoord target,
+            out float distance,
+            out bool isLeftDirection,
+            out float angleToRotate,
+            out float rotationTime,
+            bool debugConsole =true)
+        {
+        
+            AskForPosition(out origin);
+            AskForPosition(out target);
+            WowCoord.GetCountClockwiseAngle(
+                origin, target,
+                out float dirAngle);
+            distance = WowCoord.GetDistanceBetween(origin, target);
+            WowSetToDirectionAngle
+                .GetRotationFromTo(origin.Angle, dirAngle,
+                out isLeftDirection, out angleToRotate);
+            ChampionMoveAndRotate.
+                Rotate(angleToRotate, out rotationTime);
+
+            if (debugConsole) { 
+                Console.WriteLine("Distance: " + distance);
+                Console.WriteLine("Direction Angle: " + dirAngle);
+                Console.WriteLine("Is Left Direction: " + isLeftDirection);
+                Console.WriteLine("Angle To Rotate: " + angleToRotate);
+                Console.WriteLine("Rotation Time: " + rotationTime);
+            }
+        }
+
+    }
+
 
     public class ToCodeException : Exception { }
 
@@ -60,12 +117,45 @@ namespace XboxClientQA.TeacherCode.CoordinateWow
         }
 
 
+        public static void GetCountClockwiseAngle(WowCoord origin,
+            WowCoord target,
+            out float angleCounterClockwase)
+        {
+            origin.GetVector2D(out Vector2 originVector);
+            target.GetVector2D(out Vector2 targetVector);
+            Vector2 direction = targetVector - originVector;
+            direction.X = -direction.X;
+            // Get clockwise angle from y axis
+            // Generated with 🤖 Copilote
+            angleCounterClockwase = (float)Math.Atan2(direction.X, -direction.Y) * (180f / (float)Math.PI);
+            if (angleCounterClockwase < 0)
+            {
+                angleCounterClockwase += 360f;
+            }
+
+        }
+        public void GetCountClockwiseAngle(WowCoord target, out float angle) {
+
+            GetCountClockwiseAngle(this, target, out angle);
+        }
+
+
+        public void GetVector2D(out float x, out float y)
+        {
+            x = X;
+            y = Y;
+        }
+        public void GetVector2D(out Vector2 vector)
+        {
+            vector = new Vector2(X, Y);
+        }
+
 
         public static float GetDistanceBetween(WowCoord origin, WowCoord target)
         {
             float x = target.X - origin.X;
             float y = target.Y - origin.Y;
-            return (float)Math.Sqrt(x * x + y * y);
+            return (float)Math.Sqrt((x * x) + (y * y));
         }
          
 

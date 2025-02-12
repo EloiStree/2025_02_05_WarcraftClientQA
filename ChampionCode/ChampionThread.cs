@@ -1,5 +1,6 @@
 ﻿
 using System.Numerics;
+using XboxClientQA.UtilityCode;
 
 //public class WowCalculator {
 
@@ -478,6 +479,15 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
     public float m_speedMoveDown = 4f;
     public float m_rotationAngle = 180f;
     public float m_pitchAngle = 180f;
+
+    public void RotationToLeftAngle(float degreeToRotateLeft)
+    {
+        RotationForLeftRightAngle(-degreeToRotateLeft);
+    }
+    public void RotationToRightAngle(float degreeToRotateRight)
+    {
+        RotationForLeftRightAngle(degreeToRotateRight);
+    }
     public void RotationForLeftRightAngle(float degreeToRotateLeftToRight)
     {
         ChampionMoveAndRotate.Rotate(degreeToRotateLeftToRight, m_rotationAngle, out float timeToRotate);
@@ -580,12 +590,22 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
 
 
 
-    public void RotateToAngle(float targetAngle, float currentAngle)
+    public void RotateToAngle(float currentAngle, float targetAngle)
     {
-        throw new NotImplementedException();
+        WowSetToDirectionAngle.GetRotationFromTo(
+            currentAngle, targetAngle,
+            out bool goLeft, out float angleToRotate);
+        if (goLeft)
+            RotationToLeftAngle(angleToRotate);
+        else
+            RotationToRightAngle(angleToRotate);
+
     }
 
-
+    public void TapMS(int keycode, int milliseconds)
+    {
+        this.PressReleaseWithDelayForMilliseconds(keycode, milliseconds, 0);
+    }
 }
 
 

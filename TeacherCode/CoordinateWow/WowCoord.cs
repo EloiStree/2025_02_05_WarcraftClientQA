@@ -67,6 +67,7 @@ namespace XboxClientQA.TeacherCode.CoordinateWow
             float y = target.Y - origin.Y;
             return (float)Math.Sqrt(x * x + y * y);
         }
+         
 
         public float GetDistanceBetween(WowCoord point)
         {

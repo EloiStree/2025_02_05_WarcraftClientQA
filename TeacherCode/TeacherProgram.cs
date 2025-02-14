@@ -24,7 +24,7 @@ namespace XboxClientQA.TeacherCode
 
             string address = "127.0.0.1";
             //address = "10.64.22.20";
-            ChampionThread champion = new ChampionThread(address, 7073, 1);
+            ChampionThread championne = new ChampionThread(address, 7073, 1);
 
             //////////////: DICTIONNAIRE
             //Dictionary<string, string> studentRegion 
@@ -83,40 +83,40 @@ namespace XboxClientQA.TeacherCode
             };
             demoAvecInt.Invoke(3);
             demoAvecInt.Invoke(5);
-            demoAvecInt = champion.WaitSomeMilliseconds;
+            demoAvecInt = championne.WaitSomeMilliseconds;
             demoAvecInt.Invoke(4000);
 
             Action sauterLeChampion =
                 () =>
                 {
-                    champion.PressReleaseWithDelayForSeconds(WowIntegerKeyboard.Space, 0, 0);
+                    championne.PressReleaseWithDelayForSeconds(WowIntegerKeyboard.Space, 0, 0);
                 };
             sauterLeChampion.Invoke();
 
-            sauterLeChampion = champion.TapJump;
+            sauterLeChampion = championne.TapJump;
             sauterLeChampion.Invoke();
             sauterLeChampion.Invoke();
-            champion.TapJump();
+            championne.TapJump();
 
 
             Action attaquePowerToUse = null;
 
             /// Aggro the premier mob
-            attaquePowerToUse = champion.TapPower1;
+            attaquePowerToUse = championne.TapPower1;
 
             /// Conter the next speel
-            attaquePowerToUse = champion.TapPower5;
+            attaquePowerToUse = championne.TapPower5;
 
             /// Final death kill
-            attaquePowerToUse = champion.TapPower9;
+            attaquePowerToUse = championne.TapPower9;
 
-            Action jump = champion.TapJump;
+            Action jump = championne.TapJump;
 
             Dictionary<string, Action> keyMapping = new Dictionary<string, Action>();
             keyMapping.Add("JUMP", jump);
-            keyMapping.Add("MAP", champion.TapMap);
-            keyMapping.Add("LEFT", champion.StartRotateLeft);
-            keyMapping.Add("left", champion.StopRotateLeft);
+            keyMapping.Add("MAP", championne.TapMap);
+            keyMapping.Add("LEFT", championne.StartRotateLeft);
+            keyMapping.Add("left", championne.StopRotateLeft);
 
 
 

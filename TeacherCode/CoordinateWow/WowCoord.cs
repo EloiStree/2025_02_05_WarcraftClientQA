@@ -14,17 +14,17 @@ namespace XboxClientQA.TeacherCode.CoordinateWow
     public class ConsoleWowCoord { 
     
     
-        public static void AskForPosition(out WowCoord current)
+        public static void AskForPosition(out WowCoord current,string displayMessage)
         {
             try { 
-            Console.WriteLine("Enter your current position");
-            Console.WriteLine("Enter X:");
-            float x = float.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Y:");
-            float y = float.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Angle:");
-            float angle = float.Parse(Console.ReadLine());
-            current = new WowCoord(x, y, angle);
+                Console.WriteLine(displayMessage);
+                Console.WriteLine("Enter X:");
+                float x = float.Parse(Console.ReadLine());
+                Console.WriteLine("Enter Y:");
+                float y = float.Parse(Console.ReadLine());
+                Console.WriteLine("Enter Angle:");
+                float angle = float.Parse(Console.ReadLine());
+                current = new WowCoord(x, y, angle);
             }
             catch (Exception e)
             {
@@ -42,8 +42,8 @@ namespace XboxClientQA.TeacherCode.CoordinateWow
             bool debugConsole =true)
         {
         
-            AskForPosition(out origin);
-            AskForPosition(out target);
+            AskForPosition(out origin,"Give origin");
+            AskForPosition(out target,"Give target");
             WowCoord.GetCountClockwiseAngle(
                 origin, target,
                 out float dirAngle);
@@ -63,6 +63,37 @@ namespace XboxClientQA.TeacherCode.CoordinateWow
             }
         }
 
+
+        public static void AskForAngleOnly(out float angle, string displayMessage) {
+
+            try
+            {
+                Console.WriteLine(displayMessage);
+                angle = float.Parse(Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                angle = 0;
+            }
+
+        }
+
+
+        public static void FetchAngleInto(
+           ref WowCoord origin,
+           ref  WowCoord target
+           )
+        {
+            AskForAngleOnly(out float startAngle, 
+                "Give start angle");
+            AskForAngleOnly(out float stopAngle,
+                "Give stop angle");
+            origin.Angle = startAngle;
+            target.Angle = stopAngle;
+        }
+
+      
     }
 
 
@@ -119,7 +150,7 @@ namespace XboxClientQA.TeacherCode.CoordinateWow
 
         public static void GetCountClockwiseAngle(WowCoord origin,
             WowCoord target,
-            out float angleCounterClockwase)
+            out float angleCounterClockwise)
         {
             origin.GetVector2D(out Vector2 originVector);
             target.GetVector2D(out Vector2 targetVector);
@@ -127,10 +158,10 @@ namespace XboxClientQA.TeacherCode.CoordinateWow
             direction.X = -direction.X;
             // Get clockwise angle from y axis
             // Generated with 🤖 Copilote
-            angleCounterClockwase = (float)Math.Atan2(direction.X, -direction.Y) * (180f / (float)Math.PI);
-            if (angleCounterClockwase < 0)
+            angleCounterClockwise = (float)Math.Atan2(direction.X, -direction.Y) * (180f / (float)Math.PI);
+            if (angleCounterClockwise < 0)
             {
-                angleCounterClockwase += 360f;
+                angleCounterClockwise += 360f;
             }
 
         }

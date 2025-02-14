@@ -3,13 +3,16 @@ using System.Net;
 using XboxClientQA.Pickup;
 using XboxClientQA.StudentCode;
 using XboxClientQA.TDD;
+using XboxClientQA.TDD.PairCoding;
 using XboxClientQA.TeacherCode;
 
 public class Program {
     public static void Main(string[] args)
     {
+        WeirdWorkshop.WeAreHere();
         StudentProgram.StudentMain(args);
         TeacherProgram.TeacherMain(args);
+        
 
         // Ciblé l'ordinateur
         string address = "127.0.0.1";

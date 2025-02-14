@@ -1,5 +1,6 @@
 ﻿
 using System.Numerics;
+using XboxClientQA.TeacherCode.CoordinateWow;
 using XboxClientQA.UtilityCode;
 
 //public class WowCalculator {
@@ -54,6 +55,7 @@ public partial class ChampionThread {
     public int m_rotateLeft = WowIntegerKeyboard.ArrowLeft;
     public int m_rotateRight = WowIntegerKeyboard.ArrowRight;
     public int m_jump = WowIntegerKeyboard.Space;
+    public int m_follow = WowIntegerKeyboard.Numpad0;
 
 
 
@@ -103,6 +105,12 @@ public partial class ChampionThread {
         }
     }
 
+    public void TabTabulation()
+    {
+        PressKey(WowIntegerKeyboard.Tab);
+        WaitFrame();
+        ReleaseKey(WowIntegerKeyboard.Tab);
+    }
 
     public void PressReleaseWithDelayForSeconds(int keycode, float delayBetweenInSeconds, float delayAfterInSeconds)
     {
@@ -207,7 +215,7 @@ public partial class ChampionThread {
 
     public void TapOpenChat() => TapKey(m_openChat);
     public void TapMap() => TapKey(WowIntegerKeyboard.KeyM);
-
+    public void TapInteract() => TapKey(WowIntegerKeyboard.KeyF);
     public void TapPower1() => TapKey(WowIntegerKeyboard.Alpha1);
     public void TapPower2() => TapKey(WowIntegerKeyboard.Alpha2);
     public void TapPower3() => TapKey(WowIntegerKeyboard.Alpha3);
@@ -606,6 +614,51 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
     {
         this.PressReleaseWithDelayForMilliseconds(keycode, milliseconds, 0);
     }
+    public static void ComputeDirectionFromTo(WowCoord from, WowCoord to, 
+        out bool isRotatingRight,
+        out float rotationAngleAbsolute)
+    {
+        ComputeDirectionFromTo(from.Angle, to.Angle, 
+            out isRotatingRight, 
+            out rotationAngleAbsolute);
+    }
+    public static void ComputeDirectionFromTo(float from, float to, 
+        out bool isRotatingRight, 
+        out float rotationAngleAbsolute)
+    {
+        // I am sorry (-___-' )
+        if (to == 0 || to == 360)
+            to = 359.9990f;
+        rotationAngleAbsolute = Math.Abs(from - to);
+        Console.WriteLine(rotationAngleAbsolute);
+
+
+
+        if (to > 0 && to <= from)
+        {
+            isRotatingRight = true;
+            if (rotationAngleAbsolute > 180)
+            {
+                isRotatingRight = false;
+                rotationAngleAbsolute = 360 - rotationAngleAbsolute;
+
+            }
+        }
+        else
+        {
+            isRotatingRight = false;
+            if (rotationAngleAbsolute > 180)
+            {
+                isRotatingRight = true;
+                rotationAngleAbsolute = 360 - rotationAngleAbsolute;
+
+            }
+
+        }
+
+        Console.WriteLine($"D {isRotatingRight} - ${rotationAngleAbsolute}");
+    }
+
 }
 
 

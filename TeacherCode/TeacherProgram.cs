@@ -22,9 +22,116 @@ namespace XboxClientQA.TeacherCode
 
 
 
-            // string address = "127.0.0.1";
-            // //address = "10.64.22.20";
-            // ChampionThread champion = new ChampionThread(address, 7073, 0);
+            string address = "127.0.0.1";
+            //address = "10.64.22.20";
+            ChampionThread champion = new ChampionThread(address, 7073, 1);
+
+            //////////////: DICTIONNAIRE
+            //Dictionary<string, string> studentRegion 
+            //    = new Dictionary<string, string>();
+
+            //studentRegion.Add("Eloi", "Liège");
+            //studentRegion.Add("Remy", "Tournai");
+            //studentRegion.Add("Guillaume", "Ghlin");
+            //studentRegion.Add("Youri", "Jurbise");
+
+            //Dictionary<string, int> studentRegionCodePostal
+            //    = new Dictionary<string, int>();
+            //studentRegionCodePostal.Add("Eloi", 4190);
+
+            //Dictionary<string, WowCoord> dico_townNameToCoord
+            //    = new Dictionary<string, WowCoord>();
+            //dico_townNameToCoord.Add("Storwind", new WowCoord(20, 45, 0));
+            //dico_townNameToCoord.Add("Elywn", new WowCoord(3, 5, 0));
+            //dico_townNameToCoord.Add("Lac Bleu", new WowCoord(10, 15, 0));
+            //dico_townNameToCoord.Add("Mine Rouge", new WowCoord(20, 45, 0));
+
+            //if (! dico_townNameToCoord.ContainsKey("Storwind"))
+            //    dico_townNameToCoord.Add("Storwind", new WowCoord(20, 45, 0));
+            //else dico_townNameToCoord["Storwind"] = new WowCoord(20, 45, 0);
+
+
+            //WowCoord mapPosition = dico_townNameToCoord["blabla"];
+            //Console.WriteLine("Map Position:"+mapPosition);
+
+
+            //List < string > townsInDico = dico_townNameToCoord.Keys.ToList();
+            //foreach (string key in townsInDico) {
+
+            //    //if (dico_townNameToCoord.ContainsKey(key)) 
+            //    { 
+            //        Console.WriteLine(key + ":" + dico_townNameToCoord[key]);
+            //    }
+            //}
+
+            //////////////////////// ACTION
+            ///
+
+            Action sauter = () =>
+            {
+                Console.WriteLine("Saute");
+            };
+            sauter.Invoke();
+            sauter.Invoke();
+            sauter.Invoke();
+
+            //LAMBDA 
+            Action demo = () => { };
+            Action<int> demoAvecInt = (unEntier) =>
+            {
+                Console.WriteLine(unEntier);
+            };
+            demoAvecInt.Invoke(3);
+            demoAvecInt.Invoke(5);
+            demoAvecInt = champion.WaitSomeMilliseconds;
+            demoAvecInt.Invoke(4000);
+
+            Action sauterLeChampion =
+                () =>
+                {
+                    champion.PressReleaseWithDelayForSeconds(WowIntegerKeyboard.Space, 0, 0);
+                };
+            sauterLeChampion.Invoke();
+
+            sauterLeChampion = champion.TapJump;
+            sauterLeChampion.Invoke();
+            sauterLeChampion.Invoke();
+            champion.TapJump();
+
+
+            Action attaquePowerToUse = null;
+
+            /// Aggro the premier mob
+            attaquePowerToUse = champion.TapPower1;
+
+            /// Conter the next speel
+            attaquePowerToUse = champion.TapPower5;
+
+            /// Final death kill
+            attaquePowerToUse = champion.TapPower9;
+
+            Action jump = champion.TapJump;
+
+            Dictionary<string, Action> keyMapping = new Dictionary<string, Action>();
+            keyMapping.Add("JUMP", jump);
+            keyMapping.Add("MAP", champion.TapMap);
+            keyMapping.Add("LEFT", champion.StartRotateLeft);
+            keyMapping.Add("left", champion.StopRotateLeft);
+
+
+
+
+            if (keyMapping.ContainsKey("JUMP")) {
+                keyMapping["JUMP"].Invoke();
+            }
+
+
+
+
+
+
+
+
 
             // float xLeftRightRatioOfMap = 4f / 50f;//percent meter
             // float yTopBottomRatioOfMap = 4.2f / 50f;//percent meter

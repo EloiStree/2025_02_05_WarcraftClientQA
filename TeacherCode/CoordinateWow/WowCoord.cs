@@ -234,6 +234,12 @@ namespace XboxClientQA.TeacherCode.CoordinateWow
             SetAngleCounterClockwise360(angle);
         }
 
+        public override string ToString()
+        {
+            string justForDemo =this.X + ","+this.Y + ","+this.Angle;
+            return $"[{this.X},{this.Y},{this.Angle}]";
+        }
+
         #region GET SET A LA C#
 
         public float Angle

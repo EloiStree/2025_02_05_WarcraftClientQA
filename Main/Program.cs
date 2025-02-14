@@ -9,7 +9,7 @@ using XboxClientQA.TeacherCode;
 public class Program {
     public static void Main(string[] args)
     {
-        WeirdWorkshop.WeAreHere();
+        //WeirdWorkshop.WeAreHere();
         StudentProgram.StudentMain(args);
         TeacherProgram.TeacherMain(args);
         

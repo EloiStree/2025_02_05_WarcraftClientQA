@@ -23,8 +23,39 @@ namespace XboxClientQA.TeacherCode
             // V 1.2.45j5
 
             string address = "127.0.0.1";
+            address = "apint.ddns.net";
+
             //address = "10.64.22.20";
-            ChampionThread championne = new ChampionThread(address, 7073, 1);
+            ChampionThread champion = new ChampionThread(address, 3615, 0);
+
+            Console.WriteLine("I am here");
+           // champion.Ping();
+
+            while (true) {
+
+                Console.WriteLine("Next ?");
+                string command = Console.ReadLine();
+                string[] items = command.Split(" ");
+                foreach (string item in items) { 
+                
+                    Console.WriteLine("Process: "+item);
+
+                    // IF ELSE IF
+                    if (item == "ping")
+                    {
+                        champion.Ping();
+                    }
+                    // SWITCH
+                    switch (item) {
+                        case "attack": 
+                        case "a":
+                            champion.TapPower1();
+                            break;
+                    }
+                    // DICTIONNAIRE
+
+                }
+            }
 
             //////////////: DICTIONNAIRE
             //Dictionary<string, string> studentRegion 
@@ -83,40 +114,40 @@ namespace XboxClientQA.TeacherCode
             };
             demoAvecInt.Invoke(3);
             demoAvecInt.Invoke(5);
-            demoAvecInt = championne.WaitSomeMilliseconds;
+            demoAvecInt = champion.WaitSomeMilliseconds;
             demoAvecInt.Invoke(4000);
 
             Action sauterLeChampion =
                 () =>
                 {
-                    championne.PressReleaseWithDelayForSeconds(WowIntegerKeyboard.Space, 0, 0);
+                    champion.PressReleaseWithDelayForSeconds(WowIntegerKeyboard.Space, 0, 0);
                 };
             sauterLeChampion.Invoke();
 
-            sauterLeChampion = championne.TapJump;
+            sauterLeChampion = champion.TapJump;
             sauterLeChampion.Invoke();
             sauterLeChampion.Invoke();
-            championne.TapJump();
+            champion.TapJump();
 
 
             Action attaquePowerToUse = null;
 
             /// Aggro the premier mob
-            attaquePowerToUse = championne.TapPower1;
+            attaquePowerToUse = champion.TapPower1;
 
             /// Conter the next speel
-            attaquePowerToUse = championne.TapPower5;
+            attaquePowerToUse = champion.TapPower5;
 
             /// Final death kill
-            attaquePowerToUse = championne.TapPower9;
+            attaquePowerToUse = champion.TapPower9;
 
-            Action jump = championne.TapJump;
+            Action jump = champion.TapJump;
 
             Dictionary<string, Action> keyMapping = new Dictionary<string, Action>();
             keyMapping.Add("JUMP", jump);
-            keyMapping.Add("MAP", championne.TapMap);
-            keyMapping.Add("LEFT", championne.StartRotateLeft);
-            keyMapping.Add("left", championne.StopRotateLeft);
+            keyMapping.Add("MAP", champion.TapMap);
+            keyMapping.Add("LEFT", champion.StartRotateLeft);
+            keyMapping.Add("left", champion.StopRotateLeft);
 
 
 

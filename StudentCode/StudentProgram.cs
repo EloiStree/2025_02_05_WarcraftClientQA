@@ -12,6 +12,8 @@ namespace XboxClientQA.StudentCode
         public static void StudentMain(params string[] args)
         {
             // ADD YOUR COE HERE ANDO ONLY IN THIS FOLDER STUDENT
+
+            
         }
     }
     

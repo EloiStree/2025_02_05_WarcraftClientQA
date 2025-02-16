@@ -81,6 +81,31 @@ namespace XboxClientQA.TeacherCode
                 Console.WriteLine($"To X:{x} , Y:{y} , A:{angle}");
                 champion.WaitTwoSeconds();
 
+                    //// IF ELSE IF
+                    //if (item == "ping")
+                    //{
+                    //    champion.Ping();
+                    //}
+                    //// SWITCH
+                    //switch (item)
+                    //{
+                    //    case "attack":
+                    //    case "a":
+                    //        champion.TapPower1();
+                    //        break;
+                    //    case "interagir":
+                    //    case "f":
+                    //        champion.TapInteract();
+                    //        break;
+                    //    case "jump":
+                    //    case "j":
+                    //        champion.TapJump();
+                    //        break;
+
+                    //    case "bonjour":
+                    //        champion.WriteAlpahNumericalTextChat("Bonjour");
+                    //        break;
+                    //}
 
                 }
                 Thread.Sleep(1);

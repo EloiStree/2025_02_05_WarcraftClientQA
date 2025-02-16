@@ -46,10 +46,23 @@ namespace XboxClientQA.TeacherCode
                         champion.Ping();
                     }
                     // SWITCH
-                    switch (item) {
-                        case "attack": 
+                    switch (item)
+                    {
+                        case "attack":
                         case "a":
                             champion.TapPower1();
+                            break;
+                        case "interagir":
+                        case "f":
+                            champion.TapInteract();
+                            break;
+                        case "jump":
+                        case "j":
+                            champion.TapJump();
+                            break;
+
+                        case "bonjour":
+                            champion.WriteAlpahNumericalTextChat("Bonjour");
                             break;
                     }
                     // DICTIONNAIRE

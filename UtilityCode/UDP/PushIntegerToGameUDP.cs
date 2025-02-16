@@ -28,7 +28,7 @@ public class PushIntegerToGameUDP
         bytesIndex.CopyTo(bytesToSend, 0);
         bytesInteger.CopyTo(bytesToSend, bytesIndex.Length);
         m_udpClient.Send(bytesToSend, bytesToSend.Length, m_ipAddress, m_port);
-        m_udpClient.Close();
+        m_udpClient.Close();//0 1 10 11 100 101  110 111 1000 1001 1010
     }
 
     public void SwithPlayerIndex(int playerIndex)

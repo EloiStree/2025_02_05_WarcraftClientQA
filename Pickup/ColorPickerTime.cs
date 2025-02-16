@@ -32,7 +32,8 @@ namespace XboxClientQA.Pickup
         public ActionCallbackTimer m_timerCallBack;
         public ScreenPixelColorPicker m_colorPicker;
 
-        public ColorPickerRefreshTimer(int x, int y, int interval = 250, bool consoleDebug = true): this(new ScreenPixelColorPicker(x, y), interval, consoleDebug)
+        public ColorPickerRefreshTimer(int x, int y, int interval = 250, bool consoleDebug = true): this(
+            new ScreenPixelColorPicker(x, y), interval, consoleDebug)
         {}
         public ColorPickerRefreshTimer( ScreenPixelColorPicker colorPicker,int interval=250, bool consoleDebug=true) {
             m_timerCallBack =  new ActionCallbackTimer(() =>
@@ -52,6 +53,12 @@ namespace XboxClientQA.Pickup
             m_position.GetAngleInverseClockWise(out angleCounterClock360);
         }
 
+        public void AskToMoveMouseWithConsoleToColor() {
+
+            m_colorPicker.GetFromConsolePixelPosition(
+                out int x, out int y, true);
+            m_colorPicker.SetPosition(x, y);
+        }
         public void FetchPositionFromConsole()
         {
             m_colorPicker.GetFromConsolePixelPosition(out int x, out int y, true);

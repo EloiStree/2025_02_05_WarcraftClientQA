@@ -193,25 +193,6 @@ public partial class ChampionThread {
 
 
 
-    public void RotateToWest(float current)
-    {
-
-        if (current > 270f)
-            current -= 360f;
-        if (current < 90)
-        {
-
-            RotationForLeftRightAngle(-(90f - current));
-        }
-        else if (current > 90 && current < 270)
-        {
-            RotationForLeftRightAngle(current - 90f);
-        }
-    }
-    
-
-
-
     public void StartEnter()=>PressKey(m_enter);
     public void StopEnter()=>ReleaseKey(m_enter);
 
@@ -557,7 +538,7 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         }
     }
 
-    internal void TapPower(int indexOfPower0To9)
+    public void TapPower(int indexOfPower0To9)
     {
         switch (indexOfPower0To9)
         {
@@ -576,7 +557,7 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         }
     }
 
-    internal void TapF1To12(int indexFunction1To12)
+    public void TapF1To12(int indexFunction1To12)
     {
         switch (indexFunction1To12)
         {
@@ -631,6 +612,7 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         // I am sorry (-___-' )
         if (to == 0 || to == 360)
             to = 359.9990f;
+
         rotationAngleAbsolute = Math.Abs(from - to);
         Console.WriteLine(rotationAngleAbsolute);
 

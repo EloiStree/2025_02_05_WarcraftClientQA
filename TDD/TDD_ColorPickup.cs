@@ -7,7 +7,7 @@ using ClientQA.Pickup;
 
 namespace ClientQA.TDD
 {
-    internal class TDD_ColorPickup
+    public class TDD_ColorPickup
     {
 
         public static void TestColorPickupLoopFromConsole() {

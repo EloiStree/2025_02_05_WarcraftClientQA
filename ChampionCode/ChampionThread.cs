@@ -1,7 +1,7 @@
 ﻿
 using System.Numerics;
-using XboxClientQA.TeacherCode.CoordinateWow;
-using XboxClientQA.UtilityCode;
+using ClientQA.TeacherCode.CoordinateWow;
+using ClientQA.UtilityCode;
 
 //public class WowCalculator {
 
@@ -48,6 +48,7 @@ public partial class ChampionThread {
     }
 
 
+
     public int m_strafeLeftKey = WowIntegerKeyboard.KeyQ;
     public int m_strafeRightKey = WowIntegerKeyboard.KeyE;
     public int m_moveHorizontalForward = WowIntegerKeyboard.ArrowUp;
@@ -88,10 +89,11 @@ public partial class ChampionThread {
     public int m_targetParty4 = WowIntegerKeyboard.F5;
     public int m_interactWithTarget = WowIntegerKeyboard.KeyF;
     public int m_ping = WowIntegerKeyboard.KeyG;
-    public int m_frameMilliseconds=50;
 
+    public int m_frameMilliseconds=50;
     public void WaitFrame()=>Thread.Sleep(m_frameMilliseconds);
     public void WaitOneSeconds() { Thread.Sleep(1000); }
+    public void WaitTwoSeconds() { Thread.Sleep(2000); }
     public void WaitSomeSeconds(float seconds) => Thread.Sleep((int)(seconds*1000f));
     public void PressKey(int keyCode) => m_sender.PushInteger(keyCode);
     public void ReleaseKey(int keyCode) => m_sender.PushInteger(keyCode+1000);

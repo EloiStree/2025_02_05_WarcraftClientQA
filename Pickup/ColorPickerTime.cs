@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using System.Timers;
 
-namespace XboxClientQA.Pickup
+namespace ClientQA.Pickup
 {
     public class ActionCallbackTimer
     {

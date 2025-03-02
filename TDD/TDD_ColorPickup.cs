@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using XboxClientQA.Pickup;
+using ClientQA.Pickup;
 
-namespace XboxClientQA.TDD
+namespace ClientQA.TDD
 {
     internal class TDD_ColorPickup
     {

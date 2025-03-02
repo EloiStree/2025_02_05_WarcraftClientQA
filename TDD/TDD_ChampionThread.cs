@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XboxClientQA.TDD
+namespace ClientQA.TDD
 {
     public class TDD_ChampionThread
     {

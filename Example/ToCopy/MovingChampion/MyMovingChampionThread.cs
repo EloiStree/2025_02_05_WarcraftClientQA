@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XboxClientQA.Example.ToCopy.MovingChampion
+namespace ClientQA.Example.ToCopy.MovingChampion
 {
 
     public class MyMovingChampionThread : I_MoveChampion

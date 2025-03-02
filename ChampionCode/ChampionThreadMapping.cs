@@ -3,7 +3,7 @@
 
 
 
-using XboxClientQA.Pickup;
+using ClientQA.Pickup;
 
 public class ChampionThreadMapping {
         
@@ -169,6 +169,10 @@ public class ChampionThreadMapping {
         ChampionThreadMapping.LoadDefaultKeyToAction(champion);
         ChampionThreadMapping.LoadInColorPickingCommand(champion, colorPicker);
         ChampionThreadMapping.AddInterpreterRMSP(champion);
-
+    }
+    public static void HideAddCode(ChampionThread champion)
+    {
+        ChampionThreadMapping.LoadDefaultKeyToAction(champion);
+        ChampionThreadMapping.AddInterpreterRMSP(champion);
     }
 }

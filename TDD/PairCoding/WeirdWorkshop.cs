@@ -4,11 +4,11 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using XboxClientQA.Pickup;
-using XboxClientQA.TeacherCode.CoordinateWow;
-using XboxClientQA.UtilityCode;
+using ClientQA.Pickup;
+using ClientQA.TeacherCode.CoordinateWow;
+using ClientQA.UtilityCode;
 
-namespace XboxClientQA.TDD.PairCoding
+namespace ClientQA.TDD.PairCoding
 {
     public  class WeirdWorkshop
     {

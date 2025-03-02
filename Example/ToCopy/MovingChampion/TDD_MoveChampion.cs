@@ -1,4 +1,4 @@
-﻿namespace XboxClientQA.Example.ToCopy.MovingChampion
+﻿namespace ClientQA.Example.ToCopy.MovingChampion
 {
     public class TDD_MoveChampion
     {

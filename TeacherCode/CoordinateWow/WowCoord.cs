@@ -6,9 +6,9 @@ using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
-using XboxClientQA.UtilityCode;
+using ClientQA.UtilityCode;
 
-namespace XboxClientQA.TeacherCode.CoordinateWow
+namespace ClientQA.TeacherCode.CoordinateWow
 {
 
     public class ConsoleWowCoord { 

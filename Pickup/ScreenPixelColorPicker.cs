@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using XboxClientQA.Pickup;
+using ClientQA.Pickup;
 
 public class ScreenPixelColorPicker
 {

@@ -11,4 +11,8 @@
     <PackageReference Include="be.elab.iid" Version="1.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="LearningExample\DuringWorkshop\Gun\" />
+  </ItemGroup>
+
 </Project>

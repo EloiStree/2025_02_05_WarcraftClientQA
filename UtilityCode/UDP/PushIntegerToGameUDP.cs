@@ -7,37 +7,67 @@ using System.Net.Sockets;
 public class PushIntegerToGameUDP
 {
 
-    public string m_ipAddress;
+    public string m_ipAddressIpv4;
     public int m_port;
     public int m_playerIndex;
     private UdpClient m_udpClient = new UdpClient();
 
+    /// <summary>
+    /// Permet d'envoyer des entiers à une cible sur un ordinateur via son adresse IPV4 et un port.
+    /// Il faut spécifier quel perosnnage l'on veut jouer. 0 Veut généralement dire tout les personnages.
+    /// </summary>
+    /// <param name="ipv4">L'ordinateur à viser via son addres ip</param>
+    /// <param name="port">L'application sur l'ordinateur à viser derrière l'address ip</param>
+    /// <param name="playerIndex">Le joueur à influencer sur l'ordinateur atteint par le port.</param>
     public PushIntegerToGameUDP(string ipv4 = "127.0.0.1", int port = 2504, int playerIndex =0)
     {
-        m_ipAddress = ipv4;
+        m_ipAddressIpv4 = ipv4;
         m_port = port;
         m_playerIndex = playerIndex;
     }
 
+    /// <summary>
+    /// Je suis une méthode qui envoi un entier à un cible qui est initier dans le constructeur.
+    /// </summary>
+    /// <param name="integerValue"></param>
     public void PushInteger(int integerValue)
     {
+        // Créé un outil pour envoyé un message en UDP via le réseaux
         m_udpClient = new UdpClient();
+        // Convertir un integer représentant le joueur en binaire 10101010 de 32 bits et donc 4 bytes
         byte[] bytesIndex = BitConverter.GetBytes(m_playerIndex);
+        // Pareil mais pour la valeur en entier à envoyer
         byte[] bytesInteger = BitConverter.GetBytes(integerValue);
+        // On prépare un tableau de 8 bytes pour stocker deux entiers
         byte[] bytesToSend = new byte[bytesIndex.Length + bytesInteger.Length];
+        // On copie l'index dans le tableau
         bytesIndex.CopyTo(bytesToSend, 0);
+        // On copie l'action en integer à envoyer dans le tableau
         bytesInteger.CopyTo(bytesToSend, bytesIndex.Length);
-        m_udpClient.Send(bytesToSend, bytesToSend.Length, m_ipAddress, m_port);
-        m_udpClient.Close();//0 1 10 11 100 101  110 111 1000 1001 1010
+        // Tout est prêt, on l'envoi à la cible sur le réseau.
+        m_udpClient.Send(bytesToSend, bytesToSend.Length, m_ipAddressIpv4, m_port);
+        // On ferme l'outil qui nous permet d'envoyé sur le réseaux.
+        m_udpClient.Close();
+
     }
 
-    public void SwithPlayerIndex(int playerIndex)
+
+    public void SetPlayerIndex(int playerIndex)
     {
         m_playerIndex = playerIndex;
     }
+
+    public void SetTargetIpv4(string m_currentComputerIp)
+    {
+        m_ipAddressIpv4 = m_currentComputerIp;
+    }
+
+    public void SetTargetPort(int defaultPort)
+    {
+        m_port = defaultPort;
+    }
 }
 
-//Console.WriteLine("Hello, World!");
 
 
 

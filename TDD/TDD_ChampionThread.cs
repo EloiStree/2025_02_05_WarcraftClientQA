@@ -16,7 +16,7 @@ namespace ClientQA.TDD
                 Console.WriteLine("Ready ? " + i);
                 Thread.Sleep(1000);
                 target.TapKey(keyCode);
-                target.WaitFrame();
+                target.WaitOneFrame();
             }
         }
 
@@ -25,7 +25,7 @@ namespace ClientQA.TDD
             foreach (string command in target.m_wowCommand)
             {
                 Console.WriteLine("Testing command: " + command);
-                target.WriteAlpahNumericalCommand(command);
+                target.WriteAlphaNumericalCommand(command);
                 target.WaitSomeSeconds(2);
                 target.WaitSomeMilliseconds(500);
             }

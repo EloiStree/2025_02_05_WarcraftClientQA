@@ -13,10 +13,9 @@ namespace ClientQA.TDD
             for (int i = from; i < to; i++)
             {
                 Console.WriteLine("Focus on player index: " + i);
-                champion.SwithPlayerIndex(i);
+                champion.SetPlayerIndex(i);
                 champion.RequestWindowFocus();
             }
-
         }
     }
 }

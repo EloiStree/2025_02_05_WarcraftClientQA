@@ -91,7 +91,7 @@ public partial class ChampionThread {
     public int m_ping = WowIntegerKeyboard.KeyG;
 
     public int m_frameMilliseconds=50;
-    public void WaitFrame()=>Thread.Sleep(m_frameMilliseconds);
+    public void WaitOneFrame()=>Thread.Sleep(m_frameMilliseconds);
     public void WaitOneSeconds() { Thread.Sleep(1000); }
     public void WaitTwoSeconds() { Thread.Sleep(2000); }
     public void WaitSomeSeconds(float seconds) => Thread.Sleep((int)(seconds*1000f));
@@ -105,13 +105,6 @@ public partial class ChampionThread {
             TapJump();
             WaitSomeMilliseconds(500);
         }
-    }
-
-    public void TabTabulation()
-    {
-        PressKey(WowIntegerKeyboard.Tab);
-        WaitFrame();
-        ReleaseKey(WowIntegerKeyboard.Tab);
     }
 
     public void PressReleaseWithDelayForSeconds(int keycode, float delayBetweenInSeconds, float delayAfterInSeconds)
@@ -131,7 +124,7 @@ public partial class ChampionThread {
 
     public void TapKey(int keyCode) { 
         PressKey(keyCode);
-        WaitFrame();
+        WaitOneFrame();
         ReleaseKey(keyCode);
     }
     public void StartJumpFor(float delayInSeconds)=> PressReleaseWithDelayForSeconds(m_jump, delayInSeconds, 0);
@@ -161,7 +154,15 @@ public partial class ChampionThread {
 
     public void StartRotateLeftFor(float delayInSeconds) => PressReleaseWithDelayForSeconds(m_rotateLeft, delayInSeconds, 0);
     public void StartRotateLeftFor(int delayInMilliseconds) => PressReleaseWithDelayForMilliseconds(m_rotateLeft, delayInMilliseconds, 0);
+
+    /// <summary>
+    /// This method will rotate the character to the left until we stop it (press the key in game with udp)
+    /// </summary>
     public void StartRotateLeft() => PressKey(m_rotateLeft);
+
+    /// <summary>
+    /// This method will stop the rotation to the left (release the key in game with udp)
+    /// </summary>
     public void StopRotateLeft() => ReleaseKey(m_rotateLeft);
 
     public void StartRotateRightFor(float delayInSeconds) => PressReleaseWithDelayForSeconds(m_rotateRight, delayInSeconds, 0);
@@ -195,6 +196,13 @@ public partial class ChampionThread {
 
     public void StartEnter()=>PressKey(m_enter);
     public void StopEnter()=>ReleaseKey(m_enter);
+
+    public void TapTabulation()
+    {
+        PressKey(WowIntegerKeyboard.Tab);
+        WaitOneFrame();
+        ReleaseKey(WowIntegerKeyboard.Tab);
+    }
 
     public void TapOpenChat() => TapKey(m_openChat);
     public void TapMap() => TapKey(WowIntegerKeyboard.KeyM);
@@ -255,7 +263,9 @@ rofl,rolleyes,rude,sad,salute,scared,scratch
 sigh,silly,slap,sleep,smell,smile,smirk,snarl,sneeze,
 snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Replace(" ", "").Split(",");
 
-    public void WriteAlpahNumericalCommand(string text, bool useSlash=true)
+
+
+    public void WriteAlphaNumericalCommand(string text, bool useSlash=true)
     {
         int customPressTime = 100;
         PressKey(m_openChat);
@@ -295,7 +305,7 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
     }
     public void WriteAlpahNumericalTextChat(string text)
     {
-        WriteAlpahNumericalCommand(text, false);
+        WriteAlphaNumericalCommand(text, false);
     }
 
     public void TapDelete() => TapKey(WowIntegerKeyboard.Delete);
@@ -368,16 +378,16 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
 
     public void TapEscape() => TapKey(WowIntegerKeyboard.Escape);
 
-    public void CmdChatLogout() => WriteAlpahNumericalCommand("logout");
+    public void CmdChatLogout() => WriteAlphaNumericalCommand("logout");
 
 
     public void CastChat(string text)
     {
-        WriteAlpahNumericalCommand("cast " + text);
+        WriteAlphaNumericalCommand("cast " + text);
     }
     public void RunLUA(string text)
     {
-        WriteAlpahNumericalCommand("run " + text);
+        WriteAlphaNumericalCommand("run " + text);
     }
 
     public void RunSoundWithLUA(int soundId)
@@ -387,11 +397,11 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
 
     public void TargetChat(string targetName)
     {
-        WriteAlpahNumericalCommand("target " + targetName);
+        WriteAlphaNumericalCommand("target " + targetName);
     }
     public void ExactTargetChat(string exactTargetName)
     {
-        WriteAlpahNumericalCommand("exacttarget " + exactTargetName);
+        WriteAlphaNumericalCommand("exacttarget " + exactTargetName);
     }
 
    
@@ -461,15 +471,16 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         m_messageQueue.AddMacroAsItemsFromLine(lineToSplitInItemsCommand);
     }
 
-    public void SwithPlayerIndex(int playerIndex)
-    {
-        m_sender.SwithPlayerIndex(playerIndex);
-    }
 
-    public float m_speedMoveLeftUpRight = 7f;
-    public float m_speedMoveDown = 4f;
+    //public float m_speedMoveLeftUpRight = 7f;
+    public float m_speedMoveForward = 7f;
+    public float m_speedMoveBackward = 4f;
+    public float m_speedMoveLeft = 7f;
+    public float m_speedMoveRight = 7f;
+
     public float m_rotationAngle = 180f;
     public float m_pitchAngle = 180f;
+
 
     public void RotationToLeftAngle(float degreeToRotateLeft)
     {
@@ -497,12 +508,12 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         float timeToMove = 0;
         if (distance > 0f)
         {
-            ChampionMoveAndRotate.Move(distance, m_speedMoveLeftUpRight, out  timeToMove);
+            ChampionMoveAndRotate.Move(distance, m_speedMoveForward, out  timeToMove);
             PressReleaseWithDelayForSeconds(m_moveHorizontalForward, Math.Abs(timeToMove), 0);
         }
         else if (distance < 0f)
         {
-            ChampionMoveAndRotate.Move(distance, m_speedMoveDown, out timeToMove);
+            ChampionMoveAndRotate.Move(distance, m_speedMoveBackward, out timeToMove);
             PressReleaseWithDelayForSeconds(m_moveHorizontalBackward, Math.Abs(timeToMove), 0);
         
         }
@@ -527,12 +538,12 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         float timeToMove = 0;
         if (distance > 0f)
         {
-            ChampionMoveAndRotate.Move(distance, m_speedMoveLeftUpRight, out timeToMove);
+            ChampionMoveAndRotate.Move(distance, m_speedMoveLeft, out timeToMove);
             PressReleaseWithDelayForSeconds(m_strafeRightKey, Math.Abs(timeToMove), 0);
         }
         else if (distance < 0f)
         {
-            ChampionMoveAndRotate.Move(distance, m_speedMoveLeftUpRight, out timeToMove);
+            ChampionMoveAndRotate.Move(distance, m_speedMoveRight, out timeToMove);
             PressReleaseWithDelayForSeconds(m_strafeLeftKey, Math.Abs(timeToMove), 0);
 
         }
@@ -643,6 +654,36 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         Console.WriteLine($"D {isRotatingRight} - ${rotationAngleAbsolute}");
     }
 
+    public  void SetTargetIpv4(string currentComputerIp)
+    {
+        m_sender.SetTargetIpv4(currentComputerIp);
+    }
+
+    public void SetTargetPort(int defaultPort)
+    {
+        m_sender.SetTargetPort( defaultPort);
+    }
+
+    public void SetPlayerIndex(int playerIndex)
+    {
+        m_sender.SetPlayerIndex(playerIndex);
+    }
+
+    public void StrafeForDistanceLeftRight(int distance)
+    {
+        //Not tested
+
+        bool isGoingLeft = distance < 0;
+        float timeToMove = distance /(isGoingLeft? m_speedMoveLeft:m_speedMoveRight);
+        if (isGoingLeft)
+        {
+            PressReleaseWithDelayForSeconds(m_strafeLeftKey, Math.Abs(timeToMove), 0);
+        }
+        else
+        {
+            PressReleaseWithDelayForSeconds(m_strafeRightKey, Math.Abs(timeToMove), 0);
+        }
+    }
 }
 
 

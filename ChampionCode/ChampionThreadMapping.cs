@@ -91,7 +91,7 @@ public class ChampionThreadMapping {
         champion.RegisterAction("oemminus", () => champion.TapKey(WowIntegerKeyboard.OemMinus));
         champion.RegisterAction("oemperiod", () => champion.TapKey(WowIntegerKeyboard.OemPeriod));
         champion.RegisterAction("oemplus", () => champion.TapKey(WowIntegerKeyboard.OemPlus));
-        champion.RegisterAction("dance", () => champion.WriteAlpahNumericalCommand("dance"));
+        champion.RegisterAction("dance", () => champion.WriteAlphaNumericalCommand("dance"));
         champion.RegisterAction("stop", () => champion.StopReleaseKey());
         champion.RegisterAction("jump", () => champion.TapJump());
         champion.RegisterAction("focus", () => {

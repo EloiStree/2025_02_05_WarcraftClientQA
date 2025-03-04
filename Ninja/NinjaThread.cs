@@ -34,7 +34,7 @@ namespace ClientQA.Ninja
         public void WaitFrame() => Thread.Sleep(m_frameMilliseconds);
         public void WaitOneSeconds() { Thread.Sleep(1000); }
         public void WaitTwoSeconds() { Thread.Sleep(2000); }
-        public void WaitSomeSeconds(float seconds) => Thread.Sleep((int)(seconds * 1000f));
+        public void WaitSomeSeconds(float seconds) { Thread.Sleep((int)(seconds * 1000f)); }
         public void PressKey(int keyCode) => m_sender.PushInteger(keyCode);
         public void ReleaseKey(int keyCode) => m_sender.PushInteger(keyCode + 1000);
         public void WaitSomeMilliseconds(int milliseconds)

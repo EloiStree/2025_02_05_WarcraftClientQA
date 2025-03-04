@@ -122,7 +122,7 @@ namespace ClientQA.TDD.PairCoding
                     (champion.m_moveHorizontalForward, tempsDeMarche, 0);
              
                 
-                champion.TabTabulation();
+                champion.TapTabulation();
                 champion.TapPower4();
                 champion.TapInteract();
             }

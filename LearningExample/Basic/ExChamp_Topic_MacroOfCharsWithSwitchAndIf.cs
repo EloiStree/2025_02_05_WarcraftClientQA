@@ -1,16 +1,16 @@
 ﻿using ClientQA.LearningExample.Core;
 using static System.Net.WebRequestMethods;
 
-namespace ClientQA.TeacherCode
+namespace ClientQA.LearningExample.Basic
 {
     internal class ExChamp_Topic_MacroOfCharsWithSwitchAndIf : A_ChampionThreadExample
     {
-        
+
         public override void Run(ChampionThread championToUse)
         {
             // Essayons de faire une macro avec des caractères et un Switch
 
-            string testAllMoves= "QqDdSsZzWwXxJjCc";
+            string testAllMoves = "QqDdSsZzWwXxJjCc";
             string testAllPower = "1234567890";
 
 
@@ -22,7 +22,7 @@ namespace ClientQA.TeacherCode
 
         }
 
-        public void PlayCharMacro(ChampionThread champion, string macro, float timeBetweenAction =2.0f)
+        public void PlayCharMacro(ChampionThread champion, string macro, float timeBetweenAction = 2.0f)
         {
             // Nous alons prentre tout le charactère dans le text macro
             foreach (char c in macro)
@@ -35,7 +35,8 @@ namespace ClientQA.TeacherCode
                     Thread.Sleep((int)(timeBetweenAction * 1000));
                 }
 
-                else {
+                else
+                {
                     // Si l'acion n'est pas trouvé, on affiche un message d'erreur dans la console.
                     Console.WriteLine("Action not found for char: " + c);
 
@@ -46,10 +47,12 @@ namespace ClientQA.TeacherCode
             }
         }
 
-        public void CharToAction(ChampionThread champion, char c, out bool found) {
+        public void CharToAction(ChampionThread champion, char c, out bool found)
+        {
 
             found = true;
-            switch (c) {
+            switch (c)
+            {
 
                 case '0': champion.TapPower0(); return;
                 case '1': champion.TapPower1(); return;
@@ -63,7 +66,8 @@ namespace ClientQA.TeacherCode
                 case '9': champion.TapPower9(); return;
             }
 
-            switch (c) {
+            switch (c)
+            {
 
                 case 'Q': champion.StartRotateLeft(); return;
                 case 'q': champion.StopRotateRight(); return;

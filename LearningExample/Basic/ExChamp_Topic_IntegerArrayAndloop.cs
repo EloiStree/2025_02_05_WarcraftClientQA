@@ -1,11 +1,11 @@
 ﻿using ClientQA.LearningExample.Core;
 
-namespace ClientQA.TeacherCode
+namespace ClientQA.LearningExample.Basic
 {
     internal class ExChamp_Topic_IntegerArrayAndloop : A_ChampionThreadExample
     {
 
-            public override void Run(ChampionThread championToUse)
+        public override void Run(ChampionThread championToUse)
         {
 
             // Dans World of Warcraft, vous avez des sorts de 0 à 9.
@@ -56,7 +56,7 @@ namespace ClientQA.TeacherCode
             // On pourrait spammer de manière aléatoire ?
 
             // Si, si, essayons avec 10 touches aléatoires.
-            System.Random r = new System.Random();
+            Random r = new Random();
             for (int i = 0; i < 10; i++)
             {
                 // On demande un nombre aléatoire entre 0 et la taille du tableau attaque et on le stocke dans la variable pouvoir.
@@ -75,7 +75,7 @@ namespace ClientQA.TeacherCode
             }
 
             // Ou créer un nouveau tableau aléatoire.
-            System.Random r1 = new System.Random();
+            Random r1 = new Random();
             int[] tableauAleatoire = new int[tailleAttaque];
             for (int i = 0; i < tailleAttaque; i++)
             {

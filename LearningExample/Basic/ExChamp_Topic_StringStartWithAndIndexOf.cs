@@ -1,6 +1,6 @@
 ﻿using ClientQA.LearningExample.Core;
 
-namespace ClientQA.TeacherCode
+namespace ClientQA.LearningExample.Basic
 {
     internal class ExChamp_Topic_StringStartWithAndIndexOf : A_ChampionThreadExample
     {
@@ -36,7 +36,8 @@ namespace ClientQA.TeacherCode
             }
 
             // Pour chaque morceau essaysons de les identifier
-            foreach (string command in commands) {
+            foreach (string command in commands)
+            {
 
                 // Stockons la longueur du morceau car nous allons l'utiliser plusieurs fois
                 int lenght = command.Length;
@@ -44,9 +45,11 @@ namespace ClientQA.TeacherCode
                 if (lenght == 0)
                     continue;
 
-                if (lenght > 2) {
+                if (lenght > 2)
+                {
 
-                    if (command[0] == 'R' && command[1] == 'L') { 
+                    if (command[0] == 'R' && command[1] == 'L')
+                    {
                         string value = command.Substring(2);
                         if (int.TryParse(value, out int angle))
                         {

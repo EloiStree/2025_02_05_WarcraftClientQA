@@ -53,7 +53,7 @@ namespace ClientQA.LearningExample.Basic
                         string value = command.Substring(2);
                         if (int.TryParse(value, out int angle))
                         {
-                            championToUse.RotationToLeftAngle(angle);
+                            championToUse.RotationOfLeftAngle(angle);
                             continue;
                         }
                     }
@@ -63,7 +63,7 @@ namespace ClientQA.LearningExample.Basic
                         string value = command.Substring(2);
                         if (int.TryParse(value, out int angle))
                         {
-                            championToUse.RotationToLeftAngle(angle);
+                            championToUse.RotationOfLeftAngle(angle);
                             continue;
                         }
                     }

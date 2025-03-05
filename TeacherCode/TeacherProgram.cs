@@ -16,6 +16,7 @@ using System.Net.Sockets;
 using ClientQA.Toolboxes;
 using ClientQA.LearningExample.Basic;
 using ClientQA.LearningExample.Core;
+using Eloi.Example.Cours;
 
 namespace ClientQA.TeacherCode
 {
@@ -43,7 +44,7 @@ namespace ClientQA.TeacherCode
 
         public static void TeacherMain(params string[] args)
         {
-
+            new ExChamp_Topic_MethodEtParametre().Run(allChampions);
             // C'est quoi une variable primitive ?
             new ExChamp_Keyword_VariablePrimitive().Run(allChampions);
 

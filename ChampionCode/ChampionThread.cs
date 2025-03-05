@@ -482,11 +482,11 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
     public float m_pitchAngle = 180f;
 
 
-    public void RotationToLeftAngle(float degreeToRotateLeft)
+    public void RotationOfLeftAngle(float degreeToRotateLeft)
     {
         RotationForLeftRightAngle(-degreeToRotateLeft);
     }
-    public void RotationToRightAngle(float degreeToRotateRight)
+    public void RotationOfRightAngle(float degreeToRotateRight)
     {
         RotationForLeftRightAngle(degreeToRotateRight);
     }
@@ -598,9 +598,9 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
             currentAngle, targetAngle,
             out bool goLeft, out float angleToRotate);
         if (goLeft)
-            RotationToLeftAngle(angleToRotate);
+            RotationOfLeftAngle(angleToRotate);
         else
-            RotationToRightAngle(angleToRotate);
+            RotationOfRightAngle(angleToRotate);
 
     }
 

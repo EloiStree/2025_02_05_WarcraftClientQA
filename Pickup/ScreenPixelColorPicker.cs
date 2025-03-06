@@ -19,6 +19,13 @@ public class ScreenPixelColorPicker
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool GetCursorPos(out POINT lpPoint);
 
+    public static void GetCursorPosition(out int x, out int y) {
+
+        GetCursorPos(out POINT p);
+        x = p.X;
+        y = p.Y;
+    }
+
     [DllImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool SetCursorPos(int X, int Y);
@@ -113,6 +120,16 @@ public class ScreenPixelColorPicker
     {
         IntPtr hdc = GetDC(IntPtr.Zero); // Get device context for the entire screen
         uint pixel = GetPixel(hdc, lockedX, lockedY);
+        ReleaseDC(IntPtr.Zero, hdc);
+        // Extract RGB values from the pixel
+        r = (int)(pixel & 0x000000FF);
+        g = (int)((pixel & 0x0000FF00) >> 8);
+        b = (int)((pixel & 0x00FF0000) >> 16);
+    }
+    public static void GetLockedPixelColor(int nativeX, int nativeY,out int r, out int g, out int b)
+    {
+        IntPtr hdc = GetDC(IntPtr.Zero); // Get device context for the entire screen
+        uint pixel = GetPixel(hdc, nativeX, nativeY);
         ReleaseDC(IntPtr.Zero, hdc);
         // Extract RGB values from the pixel
         r = (int)(pixel & 0x000000FF);

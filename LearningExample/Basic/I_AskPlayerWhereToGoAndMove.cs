@@ -5,9 +5,10 @@ using System.Xml.Linq;
 namespace XboxClientQA.LearningExample.Basic
 {
 
+
+    public enum RotationDirection { Left, Right }
     public interface I_AskPlayerWhereToGoAndMove
     {
-        public enum RotationDirection { Left, Right}
 
         /// <summary>
         /// Sauver la vitesse de déplacement du joueur donner (7 par defaut)

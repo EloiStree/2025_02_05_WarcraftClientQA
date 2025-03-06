@@ -6,6 +6,13 @@
     /// </summary>
     public class WowWorldPosition
     {
+
+        public WowWorldPosition() { }
+        public WowWorldPosition(double x, double y) {
+
+            m_xRightToleft = x;
+            m_yDownToUp = y;
+        }
         /// <summary>
         /// From right -19999 to left 19999 (⬅️)
         /// </summary>

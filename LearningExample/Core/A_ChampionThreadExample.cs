@@ -29,7 +29,6 @@
         }
         public LearnDifficultyLevel Difficulty
         {
-
             get
             {
                 return m_difficultyLevelOfTheExample;

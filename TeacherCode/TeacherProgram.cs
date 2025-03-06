@@ -17,11 +17,12 @@ using ClientQA.Toolboxes;
 using ClientQA.LearningExample.Basic;
 using ClientQA.LearningExample.Core;
 using Eloi.Example.Cours;
+using XboxClientQA.LearningExample.Basic;
+using ClientQA.Pickup;
 
 namespace ClientQA.TeacherCode
 {
-
-    public class TeacherProgram
+    public partial class TeacherProgram
     {
 
         /// <summary>
@@ -41,9 +42,102 @@ namespace ClientQA.TeacherCode
         public static ChampionThread mage = new ChampionThread("127.0.0.1", 7073, 4);
         public static ChampionThread demonist = new ChampionThread("127.0.0.1", 7073, 5);
 
-
         public static void TeacherMain(params string[] args)
         {
+
+
+            TDD_WowWorldPositionToAngle.TestAll();
+            ChampionThread champion = new ChampionThread("127.0.0.1", 7073, 0);
+          
+            bool checkColorPosition = false;
+            if (checkColorPosition) { 
+                for(int i=0; i < 4; i++)
+                {
+                    Console.WriteLine("Move Mouse to position "+ i);
+                    Thread.Sleep(4000);
+                    ScreenPixelColorPicker.GetCursorPosition(out int x, out int y);
+                    Console.WriteLine($"Mouse X {x} Y {y}");
+                }
+            }
+
+            
+
+
+            Vector2 colorAngle = new Vector2(1908, 120);
+            Vector2 colorX = new Vector2(1908, 220);
+            Vector2 colorY = new Vector2(1908, 374);
+            Vector2 colorLifeXp = new Vector2(1908, 525);
+
+            while (true) {
+
+                Console.WriteLine("Macro:");
+                string text = Console.ReadLine();
+
+                ScreenPixelColorPicker.GetLockedPixelColor((int)colorAngle.X, (int)colorAngle.Y, out int ra, out int ga, out int ba);
+                ScreenPixelColorPicker.GetLockedPixelColor((int)colorX.X, (int)colorX.Y, out int rx, out int gx, out int bx);
+                ScreenPixelColorPicker.GetLockedPixelColor((int)colorY.X, (int)colorY.Y, out int ry, out int gy, out int by);
+                ScreenPixelColorPicker.GetLockedPixelColor((int)colorLifeXp.X, (int)colorLifeXp.Y, out int rl, out int gl, out int bl);
+
+
+                Console.WriteLine($"Rx{ra} Gx{ga} Bx{ba}");
+                Console.WriteLine($"Rx{rx} Gx{gx} Bx{bx}");
+                Console.WriteLine($"Ry{ry} Gy{gy} By{by}");
+                Console.WriteLine($"Ry{rl} Gy{gl} By{bl}");
+                PixelColor32 x32 = new PixelColor32(rx, gx, bx);
+                PixelColor32 y32 = new PixelColor32(ry, gy, by);
+                PixelColor32 a32 = new PixelColor32(ra, ga, ba);
+                PixelColor32 l32 = new PixelColor32(rl, gl, bl);
+
+
+                ConvertPixelToDataUtility.ConvertPixelToIntValue(x32, out int worldPositionX);
+                ConvertPixelToDataUtility.ConvertPixelToIntValue(y32, out int worldPositionY);
+                ConvertPixelToDataUtility.ConvertPixelToMap2D(a32, out float mapx, out float mapy, out float angle);
+                ConvertPixelToDataUtility.ConvertPixelToLifeXpLevel(l32, out float percentLife, out float percentXp, out int playerLevel);
+
+
+
+                Console.WriteLine($"X{worldPositionX} Y{worldPositionY}");
+                Console.WriteLine($"MX{mapx} MY{mapy} Angle{angle}");
+
+
+
+                WowWorldPosition position = new WowWorldPosition(worldPositionX, worldPositionY);
+                WowWorldPosition whereToGo = null;
+
+                // Fire at start
+                whereToGo = new WowWorldPosition(-115,-8769);
+                // Gate
+                whereToGo = new WowWorldPosition(-97.9, -9051.1);
+
+                WowWorldPositionUtility.ComputeWowAngleFrom(position, whereToGo, out float angleDirection);
+                WowWorldPositionUtility.ComputeDistance(position, whereToGo, out double distanceInWorldPosition);
+
+                Console.WriteLine($"Player Angle {angle} Direction {angleDirection}");
+
+                if (text == "r")
+                {
+                    champion.RotateToAngle(angle, angleDirection);
+                    champion.MoveForDistance((float)distanceInWorldPosition);
+                }
+
+                else if (text == "goto") {
+                    ConsoleWowCoord.MoveBetweenTwoWorldPoints(champion);
+
+                }
+                //CA MARCHE :)
+                Console.Write($"Player xp {percentXp}  life {percentLife}  level {playerLevel}");
+
+
+            }
+
+
+
+
+
+
+
+            System.Environment.Exit(1);
+
             new ExChamp_Topic_MethodEtParametre().Run(allChampions);
             // C'est quoi une variable primitive ?
             new ExChamp_Keyword_VariablePrimitive().Run(allChampions);

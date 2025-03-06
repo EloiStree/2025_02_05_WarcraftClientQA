@@ -1,4 +1,5 @@
 ﻿using ClientQA.UtilityCode;
+using XboxClientQA.LearningExample.Basic;
 
 namespace ClientQA.TeacherCode.CoordinateWow
 {
@@ -84,6 +85,11 @@ namespace ClientQA.TeacherCode.CoordinateWow
             target.Angle = stopAngle;
         }
 
-      
+        public static void MoveBetweenTwoWorldPoints(ChampionThread champion)
+        {
+            var exerciceSolution = new ExerciceSolution_AskPlayerWhereToGo();
+            exerciceSolution.Run(champion);
+
+        }
     }
 }

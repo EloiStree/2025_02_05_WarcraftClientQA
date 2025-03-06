@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Threading;
 
 using ClientQA.LearningExample.Core;
+using ClientQA.TeacherCode.CoordinateWow;
 
 namespace Eloi.Example.Cours
 {

@@ -608,7 +608,7 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
     {
         this.PressReleaseWithDelayForMilliseconds(keycode, milliseconds, 0);
     }
-    public static void ComputeDirectionFromTo(WowCoord from, WowCoord to, 
+    public static void ComputeDirectionFromTo(WowMapCoord from, WowMapCoord to, 
         out bool isRotatingRight,
         out float rotationAngleAbsolute)
     {

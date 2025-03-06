@@ -61,8 +61,8 @@ namespace ClientQA.TDD.PairCoding
                 //}
 
                 //champion.Ping();
-                WowCoord current = new WowCoord();
-                WowCoord target = new WowCoord();
+                WowMapCoord current = new WowMapCoord();
+                WowMapCoord target = new WowMapCoord();
                 current.X = 57;
                 current.Y = 53;
                 current.Angle = 267;

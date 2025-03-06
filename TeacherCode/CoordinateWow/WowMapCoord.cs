@@ -6,150 +6,64 @@ using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
-using ClientQA.UtilityCode;
 
 namespace ClientQA.TeacherCode.CoordinateWow
 {
 
-    public class ConsoleWowCoord { 
-    
-    
-        public static void AskForPosition(out WowCoord current,string displayMessage)
-        {
-            try { 
-                Console.WriteLine(displayMessage);
-                Console.WriteLine("Enter X:");
-                float x = float.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Y:");
-                float y = float.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Angle:");
-                float angle = float.Parse(Console.ReadLine());
-                current = new WowCoord(x, y, angle);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error: " + e.Message);
-                current = new WowCoord();
-            }
-        }
-        public static void AskForDirectionInfo(
-            out WowCoord origin,
-            out WowCoord target,
-            out float distance,
-            out bool isLeftDirection,
-            out float angleToRotate,
-            out float rotationTime,
-            bool debugConsole =true)
-        {
-        
-            AskForPosition(out origin,"Give origin");
-            AskForPosition(out target,"Give target");
-            WowCoord.GetCountClockwiseAngle(
-                origin, target,
-                out float dirAngle);
-            distance = WowCoord.GetDistanceBetween(origin, target);
-            WowSetToDirectionAngle
-                .GetRotationFromTo(origin.Angle, dirAngle,
-                out isLeftDirection, out angleToRotate);
-            ChampionMoveAndRotate.
-                Rotate(angleToRotate, out rotationTime);
-
-            if (debugConsole) { 
-                Console.WriteLine("Distance: " + distance);
-                Console.WriteLine("Direction Angle: " + dirAngle);
-                Console.WriteLine("Is Left Direction: " + isLeftDirection);
-                Console.WriteLine("Angle To Rotate: " + angleToRotate);
-                Console.WriteLine("Rotation Time: " + rotationTime);
-            }
-        }
-
-
-        public static void AskForAngleOnly(out float angle, string displayMessage) {
-
-            try
-            {
-                Console.WriteLine(displayMessage);
-                angle = float.Parse(Console.ReadLine());
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-                angle = 0;
-            }
-
-        }
-
-
-        public static void FetchAngleInto(
-           ref WowCoord origin,
-           ref  WowCoord target
-           )
-        {
-            AskForAngleOnly(out float startAngle, 
-                "Give start angle");
-            AskForAngleOnly(out float stopAngle,
-                "Give stop angle");
-            origin.Angle = startAngle;
-            target.Angle = stopAngle;
-        }
-
-      
-    }
-
-
-    public class ToCodeException : Exception { }
-
-    public class WowCoord
+    /// <summary>
+    /// I am a class that represents a position in the wow 2D regional Map.
+    /// </summary>
+    public class WowMapCoord
     {
 
         public static bool IsAtRight(
-            WowCoord origin, 
-            WowCoord target)
+            WowMapCoord origin, 
+            WowMapCoord target)
         {
             return target.X  > origin.X ;
         }
-        public bool IsAtRight(WowCoord point)
+        public bool IsAtRight(WowMapCoord point)
         {
             return point.X > this.X;
         }
 
         public static bool IsAtLeft(
-            WowCoord origin,
-            WowCoord target)
+            WowMapCoord origin,
+            WowMapCoord target)
         {
             return target.X < origin.X;
         }
-        public bool IsAtLeft(WowCoord point)
+        public bool IsAtLeft(WowMapCoord point)
         {
             return point.X < this.X;
         }
 
         public static bool IsAtUp(
-            WowCoord origin,
-            WowCoord target)
+            WowMapCoord origin,
+            WowMapCoord target)
         {
             return target.Y < origin.Y;
         }
-        public bool IsAtUp(WowCoord point)
+        public bool IsAtUp(WowMapCoord point)
         {
             return point.Y < this.Y;
         }
 
         public static bool IsAtDown(
-            WowCoord origin,
-            WowCoord target)
+            WowMapCoord origin,
+            WowMapCoord target)
         {
             return target.Y > origin.Y;
         }
 
-        public bool IsAtDown(WowCoord point)
+        public bool IsAtDown(WowMapCoord point)
         {
             return point.Y > this.Y;
         }
 
 
-        public static void GetCountClockwiseAngle(WowCoord origin,
-            WowCoord target,
+        public static void GetCountClockwiseAngle(WowMapCoord origin,
+            WowMapCoord target,
             out float angleCounterClockwise)
         {
             origin.GetVector2D(out Vector2 originVector);
@@ -165,7 +79,7 @@ namespace ClientQA.TeacherCode.CoordinateWow
             }
 
         }
-        public void GetCountClockwiseAngle(WowCoord target, out float angle) {
+        public void GetCountClockwiseAngle(WowMapCoord target, out float angle) {
 
             GetCountClockwiseAngle(this, target, out angle);
         }
@@ -182,7 +96,7 @@ namespace ClientQA.TeacherCode.CoordinateWow
         }
 
 
-        public static float GetDistanceBetween(WowCoord origin, WowCoord target)
+        public static float GetDistanceBetween(WowMapCoord origin, WowMapCoord target)
         {
             float x = target.X - origin.X;
             float y = target.Y - origin.Y;
@@ -190,16 +104,16 @@ namespace ClientQA.TeacherCode.CoordinateWow
         }
          
 
-        public float GetDistanceBetween(WowCoord point)
+        public float GetDistanceBetween(WowMapCoord point)
         {
             return GetDistanceBetween(this, point);
         }
 
-        public static float GetAngleBetween(WowCoord origin, WowCoord target)
+        public static float GetAngleBetween(WowMapCoord origin, WowMapCoord target)
         {
             return target.Angle - origin.Angle;
         }
-        public float GetAngleBetween(WowCoord point)
+        public float GetAngleBetween(WowMapCoord point)
         {
             return GetAngleBetween(this, point);
         }
@@ -221,13 +135,13 @@ namespace ClientQA.TeacherCode.CoordinateWow
         private float m_angleCounterClockwise360 =0;
 
 
-        public WowCoord()
+        public WowMapCoord()
         {
             m_xLeftToRightPercent100 = 50;
             m_yUpToDownPercent100 = 50;
             m_angleCounterClockwise360=180;
         }
-        public WowCoord(float x, float y, float angle)
+        public WowMapCoord(float x, float y, float angle)
         {
             m_xLeftToRightPercent100 = x;
             m_yUpToDownPercent100 = y;

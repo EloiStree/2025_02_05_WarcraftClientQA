@@ -27,7 +27,7 @@ namespace ClientQA.TeacherCode.CoordinateWow
             out double distance)
 
         {
-            // Not tested
+            //NOT TESTED
             ComputeDistance(from, to, out distance);
             ComputeWowAngleFrom(from, to, out float worldAngle);
             WowSetToDirectionAngle.ComputeDirectionFromTo(
@@ -38,82 +38,77 @@ namespace ClientQA.TeacherCode.CoordinateWow
 
         public static void ComputeWowAngleFrom(in WowWorldPosition from, in WowWorldPosition to, out float angleDestination)
         {
-            //CREDIT: THOMAS TOUSSAIN
-
             angleDestination = 0;
-            //On replace le vecteur au centre du plan cartésien
-            double distanceX = to.m_xRightToleft - from.m_xRightToleft;
-            double distanceY = to.m_yDownToUp - from.m_yDownToUp;
-            // Cela ressemble à ça.
-            Console.WriteLine($" World Coordonate: x{distanceX} y {distanceY}");
+            // On repositionne le vecteur par rapport à l'origine du plan cartésien
+            double x = to.m_xRightToleft - from.m_xRightToleft;
+            double y = to.m_yDownToUp - from.m_yDownToUp;
 
-            // Comme l'axis X va de gauche à droite
-            // Contre de droite à gauche en math
-            // Inversons le X
-            distanceX = -distanceX;
-            Console.WriteLine($"World X Mirror: x{distanceX} y {distanceY}");
+            // L'axe X dans World of Warcraft va de gauche à droite,
+            // tandis qu'en mathématiques il est orienté de droite à gauche.
+            // On applique donc une symétrie sur l'axe X.
+            x = -x;
 
+            if (y < 0 && x > 0)
+            {
+                // Cas où l'on est en bas à droite dans le plan cartésien mathématique
+                // On applique une symétrie sur l'axe Y pour ramener le point dans la partie supérieure du plan
+                y = -y;
 
-            if (distanceY < 0 && distanceX > 0)
-            {// Si l'on est en bas à droite dans le plan cartésien.
+                // Calcul de l'angle en radians à l'aide de la fonction atan2 (opposé / adjacent)
+                double inRadiansAngle = Math.Atan2(y, x);
 
-                // On doit inverser le Y poru le ramener sur la zone XY 
-                distanceY = -distanceY;
-                // Calculons l'angle
-                double inRadiansAngle = Math.Atan2(distanceY, distanceX);
-                //Transformons le en degree
+                // Conversion de l'angle en degrés
                 double inDegree = (180.0 / Math.PI) * inRadiansAngle;
 
-                Console.WriteLine("Rad: " + inRadiansAngle);
-                Console.WriteLine("Degree: " + inDegree);
-                // Convertison l'angle sur une rotation propore à world of warcraft.
+                // Ajustement de l'angle pour respecter l'orientation counter-clockwise de WoW
                 double inWowDegree = 270 - inDegree;
-                Console.WriteLine("Degree in Wow: " + inWowDegree);
 
                 angleDestination = (float)inWowDegree;
             }
-            else if (distanceY < 0 && distanceX < 0)
+            else if (y < 0 && x < 0)
             {
-                // On tourne l'angle vers le dessus
-                distanceY = -distanceY;
-                // On mirroit l'angle vers la droite
-                distanceX = -distanceX;
+                // Cas où l'on est en bas à gauche dans le plan cartésien mathématique
+                // Symétrie sur l'axe Y pour ramener dans la partie supérieure du plan
+                y = -y;
+                // Symétrie sur l'axe X pour ramener dans la partie droite du plan
+                x = -x;
 
-                double inRadiansAngle = Math.Atan2(distanceY, distanceX);
+                double inRadiansAngle = Math.Atan2(y, x);
                 double inDegree = (180.0 / Math.PI) * inRadiansAngle;
-                Console.WriteLine("Rad: " + inRadiansAngle);
-                Console.WriteLine("Degree: " + inDegree);
+
+                // Ajout de 90° pour respecter l'orientation counter-clockwise de WoW
                 double inWowDegree = 90 + inDegree;
-                Console.WriteLine("Degree in Wow: " + inWowDegree);
+
                 angleDestination = (float)inWowDegree;
             }
-            else if (distanceY > 0 && distanceX > 0)
+            else if (y > 0 && x > 0)
             {
+                // Cas où l'on est déjà dans la partie correcte du plan
 
-                double inRadiansAngle = Math.Atan2(distanceY, distanceX);
+                double inRadiansAngle = Math.Atan2(y, x);
                 double inDegree = (180.0 / Math.PI) * inRadiansAngle;
-                Console.WriteLine("Rad: " + inRadiansAngle);
-                Console.WriteLine("Degree: " + inDegree);
+
+                // Ajout de 270° pour s'aligner avec l'orientation counter-clockwise de WoW
                 double inWowDegree = 270 + inDegree;
-                Console.WriteLine("Degree in Wow: " + inWowDegree);
-                angleDestination = (float)inWowDegree;
 
+                angleDestination = (float)inWowDegree;
             }
-            else if (distanceY > 0 && distanceX < 0)
+            else if (y > 0 && x < 0)
             {
-                distanceX = -distanceX;
-                double inRadiansAngle = Math.Atan2(distanceY, distanceX);
+                // Cas où l'on est en haut à gauche dans le plan cartésien mathématique
+                // Symétrie sur l'axe X pour ramener dans la partie droite du plan
+                x = -x;
+
+                double inRadiansAngle = Math.Atan2(y, x);
                 double inDegree = (180.0 / Math.PI) * inRadiansAngle;
-                Console.WriteLine("Rad: " + inRadiansAngle);
-                Console.WriteLine("Degree: " + inDegree);
+
+                // Soustraction de 90° pour respecter l'orientation counter-clockwise de WoW
                 double inWowDegree = 90 - inDegree;
-                Console.WriteLine("Degree in Wow: " + inWowDegree);
+
                 angleDestination = (float)inWowDegree;
             }
-
-
-
         }
+
 
     }
 }

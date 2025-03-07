@@ -121,9 +121,6 @@ namespace ClientQA.LearningExample.Basic
             champion.StopMovingForward();
         }
     }
-
-
-
 }
 
 

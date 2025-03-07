@@ -1,8 +1,7 @@
 ﻿namespace ClientQA.TeacherCode
 {
 
-    public partial class TeacherProgram
-    {
+    
         public class PixelColor
         {
             public PixelColor() { }
@@ -18,5 +17,5 @@
             public float m_b;
 
         }
-    }
+    
 }

@@ -1,4 +1,4 @@
-﻿namespace XboxClientQA.LearningExample.Basic
+﻿namespace ClientQA.LearningExample.Basic
 {
     public interface I_ExcelToLearningCSharp_BasicPython{
 

@@ -2,7 +2,7 @@
 using ClientQA.Ninja;
 using System.Net.Sockets;
 
-namespace ClientQA.TeacherCode
+namespace XboxClientQA.Archive
 {
     public class TeacherProgramArchiveMardi
     {
@@ -16,7 +16,7 @@ namespace ClientQA.TeacherCode
         {
 
             UdpClient udpClient = new UdpClient(ipv4, port);
-            Byte[] sendBytes = Encoding.ASCII.GetBytes(message);
+            byte[] sendBytes = Encoding.ASCII.GetBytes(message);
             udpClient.Send(sendBytes, sendBytes.Length);
             udpClient.Close();
 
@@ -56,7 +56,7 @@ namespace ClientQA.TeacherCode
         }
         public static void Add(int a, int b, out long resultOfAddition)
         {
-            resultOfAddition = ((long)a) + ((long)b);
+            resultOfAddition = a + (long)b;
         }
         public static void Add(int a, int b, out float resultOfAddition)
         {

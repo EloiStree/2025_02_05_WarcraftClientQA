@@ -17,7 +17,7 @@ using ClientQA.Toolboxes;
 using ClientQA.LearningExample.Basic;
 using ClientQA.LearningExample.Core;
 using Eloi.Example.Cours;
-using XboxClientQA.LearningExample.Basic;
+using ClientQA.LearningExample.Basic;
 using ClientQA.Pickup;
 
 namespace ClientQA.TeacherCode

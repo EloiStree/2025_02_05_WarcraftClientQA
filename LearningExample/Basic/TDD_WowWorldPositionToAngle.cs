@@ -1,6 +1,6 @@
 ﻿using ClientQA.TeacherCode.CoordinateWow;
 
-namespace XboxClientQA.LearningExample.Basic
+namespace ClientQA.LearningExample.Basic
 {
     public static class TDD_WowWorldPositionToAngle {
 

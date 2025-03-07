@@ -594,13 +594,13 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
 
     public void RotateToAngle(float currentAngle, float targetAngle)
     {
-        WowSetToDirectionAngle.GetRotationFromTo(
+        WowSetToDirectionAngle.ComputeDirectionFromTo(
             currentAngle, targetAngle,
-            out bool goLeft, out float angleToRotate);
-        if (goLeft)
-            RotationOfLeftAngle(angleToRotate);
-        else
+            out bool isRight, out float angleToRotate);
+        if (isRight)
             RotationOfRightAngle(angleToRotate);
+        else
+            RotationOfLeftAngle(angleToRotate);
 
     }
 
@@ -612,47 +612,11 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         out bool isRotatingRight,
         out float rotationAngleAbsolute)
     {
-        ComputeDirectionFromTo(from.Angle, to.Angle, 
+        WowSetToDirectionAngle. ComputeDirectionFromTo(from.Angle, to.Angle, 
             out isRotatingRight, 
             out rotationAngleAbsolute);
     }
-    public static void ComputeDirectionFromTo(float from, float to, 
-        out bool isRotatingRight, 
-        out float rotationAngleAbsolute)
-    {
-        // I am sorry (-___-' )
-        if (to == 0 || to == 360)
-            to = 359.9990f;
-
-        rotationAngleAbsolute = Math.Abs(from - to);
-        Console.WriteLine(rotationAngleAbsolute);
-
-
-
-        if (to > 0 && to <= from)
-        {
-            isRotatingRight = true;
-            if (rotationAngleAbsolute > 180)
-            {
-                isRotatingRight = false;
-                rotationAngleAbsolute = 360 - rotationAngleAbsolute;
-
-            }
-        }
-        else
-        {
-            isRotatingRight = false;
-            if (rotationAngleAbsolute > 180)
-            {
-                isRotatingRight = true;
-                rotationAngleAbsolute = 360 - rotationAngleAbsolute;
-
-            }
-
-        }
-
-        Console.WriteLine($"D {isRotatingRight} - ${rotationAngleAbsolute}");
-    }
+    
 
     public  void SetTargetIpv4(string currentComputerIp)
     {

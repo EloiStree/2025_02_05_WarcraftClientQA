@@ -7,7 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XboxClientQA.LearningExample.Basic
+namespace ClientQA.LearningExample.Basic
 {
     public class ExChamp_WowWorldToAngle : A_ChampionThreadExample
     {

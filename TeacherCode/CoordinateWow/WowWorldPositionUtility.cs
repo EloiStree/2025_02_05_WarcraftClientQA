@@ -1,5 +1,5 @@
 ﻿using ClientQA.UtilityCode;
-using XboxClientQA.LearningExample.Basic;
+using ClientQA.LearningExample.Basic;
 
 namespace ClientQA.TeacherCode.CoordinateWow
 {
@@ -30,10 +30,10 @@ namespace ClientQA.TeacherCode.CoordinateWow
             // Not tested
             ComputeDistance(from, to, out distance);
             ComputeWowAngleFrom(from, to, out float worldAngle);
-            WowSetToDirectionAngle.GetRotationFromTo(
+            WowSetToDirectionAngle.ComputeDirectionFromTo(
            playerAngle, worldAngle,
-           out bool goLeft, out angleToRotate);
-            direction = goLeft ? RotationDirection.Left : RotationDirection.Right;
+           out bool isRight, out angleToRotate);
+            direction = isRight ? RotationDirection.Right : RotationDirection.Left;
         }
 
         public static void ComputeWowAngleFrom(in WowWorldPosition from, in WowWorldPosition to, out float angleDestination)

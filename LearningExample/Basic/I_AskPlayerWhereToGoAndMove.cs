@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace XboxClientQA.LearningExample.Basic
+namespace ClientQA.LearningExample.Basic
 {
 
 

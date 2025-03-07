@@ -1,5 +1,5 @@
 ﻿using ClientQA.UtilityCode;
-using XboxClientQA.LearningExample.Basic;
+using ClientQA.LearningExample.Basic;
 
 namespace ClientQA.TeacherCode.CoordinateWow
 {
@@ -28,7 +28,7 @@ namespace ClientQA.TeacherCode.CoordinateWow
             out WowMapCoord origin,
             out WowMapCoord target,
             out float distance,
-            out bool isLeftDirection,
+            out bool isRightDirection,
             out float angleToRotate,
             out float rotationTime,
             bool debugConsole =true)
@@ -41,15 +41,15 @@ namespace ClientQA.TeacherCode.CoordinateWow
                 out float dirAngle);
             distance = WowMapCoord.GetDistanceBetween(origin, target);
             WowSetToDirectionAngle
-                .GetRotationFromTo(origin.Angle, dirAngle,
-                out isLeftDirection, out angleToRotate);
+                .ComputeDirectionFromTo(origin.Angle, dirAngle,
+                out isRightDirection, out angleToRotate);
             ChampionMoveAndRotate.
                 Rotate(angleToRotate, out rotationTime);
 
             if (debugConsole) { 
                 Console.WriteLine("Distance: " + distance);
                 Console.WriteLine("Direction Angle: " + dirAngle);
-                Console.WriteLine("Is Left Direction: " + isLeftDirection);
+                Console.WriteLine("Is Left Direction: " + isRightDirection);
                 Console.WriteLine("Angle To Rotate: " + angleToRotate);
                 Console.WriteLine("Rotation Time: " + rotationTime);
             }

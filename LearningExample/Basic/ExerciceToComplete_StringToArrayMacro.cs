@@ -1,4 +1,4 @@
-﻿namespace XboxClientQA.LearningExample.Basic
+﻿namespace ClientQA.LearningExample.Basic
 {
     public class ExerciceToComplete_StringToArrayMacro : I_TextToChampionInterpretor
     {

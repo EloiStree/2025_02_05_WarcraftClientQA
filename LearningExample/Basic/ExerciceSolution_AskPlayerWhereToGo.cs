@@ -1,10 +1,13 @@
 ﻿using ClientQA.TeacherCode.CoordinateWow;
-using static ClientQA.LearningExample.Basic.I_AskPlayerWhereToGoAndMove;
+using ClientQA.UtilityCode;
 
 namespace ClientQA.LearningExample.Basic
 {
-    public class ExerciceToComplete_AskPlayerWhereToGo : I_AskPlayerWhereToGoAndMove
+    public class ExerciceSolution_AskPlayerWhereToGo : I_AskPlayerWhereToGoAndMove
     {
+
+       
+
         public void Run(ChampionThread champion)
         {
             SetPlayerMoveSpeed(champion.m_speedMoveForward);
@@ -23,70 +26,104 @@ namespace ClientQA.LearningExample.Basic
         }
 
 
+        public float m_moveSpeed = 7;
+        public float m_rotationSpeed = 180;
         public void SetPlayerMoveSpeed(float moveSpeed = 7)
         {
-            throw new NotImplementedException();
+            m_moveSpeed = moveSpeed;
         }
 
         public void SetPlayerRotationSpeed(float rotationSpeed = 180)
         {
-            throw new NotImplementedException();
+            m_rotationSpeed = rotationSpeed;
         }
 
         public void Step00_AskWithConsoleThePlayerAngle(out float playerAngle)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Enter the player angle");
+            playerAngle = float.Parse(Console.ReadLine());
         }
 
         public void Step01_AskWithConsoleOrigin(out WowWorldPosition origin)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Enter the origin x");
+            double x = double.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the origin y");
+            double y = double.Parse(Console.ReadLine());
+            origin = new WowWorldPosition(x, y);
         }
 
         public void Step02_AskWithConsoleDestination(out WowWorldPosition destination)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Enter the destination x");
+            double x = double.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the destination y");
+            double y = double.Parse(Console.ReadLine());
+            destination = new WowWorldPosition(x, y);
         }
 
         public void Step04_ComputeTheDistance(in WowWorldPosition origin, in WowWorldPosition destination, out double distance)
         {
-            throw new NotImplementedException();
+            distance = Math.Sqrt(Math.Pow(destination.m_xRightToleft - origin.m_xRightToleft, 2) + Math.Pow(destination.m_yDownToUp - origin.m_yDownToUp, 2));
         }
 
         public void Step05_ComputeTimeToRun(in double distance, out int timeToRunInMilliseconds)
         {
-            throw new NotImplementedException();
+            timeToRunInMilliseconds = (int)(distance / m_moveSpeed * 1000);
         }
 
         public void Step06_DisplayInComingDistance(in double distance)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Distance to run {distance}");
         }
 
         public void Step07_DisplayTimeToRunInMilliseconds(in int timeToRunInMilliseconds)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Time to run {timeToRunInMilliseconds}");
         }
 
         public void Step08_ComputeTheAngleOfDestination(in WowWorldPosition origin, in WowWorldPosition destination, out float angleDestination)
         {
-            throw new NotImplementedException();
+            WowWorldPositionUtility.ComputeWowAngleFrom(origin, destination, out angleDestination);
         }
 
         public void Step09_ComputeRotationTime(in float angleStart, in float angleDestination, out RotationDirection rotationDirection, out int millisecondsToRotate)
         {
-            throw new NotImplementedException();
+            WowSetToDirectionAngle.ComputeDirectionFromTo(
+            angleStart, angleDestination,
+            out bool isRight, out float angleToRotate);
+         
+            rotationDirection = isRight ? RotationDirection.Right : RotationDirection.Left;
+            millisecondsToRotate = (int)(angleToRotate / m_rotationSpeed * 1000);
         }
 
         public void Step10_DisplayRotationTime(in RotationDirection rotationDirection, in float angleToRotate)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Rotation {rotationDirection} {angleToRotate}");
         }
         public void FinalStep_MoveTheChampion(in ChampionThread champion, in RotationDirection rotation, in int rotationTimeInMilliSeconds, in int moveTimeInMilliseconds)
         {
-            throw new NotImplementedException();
+            if (rotation == RotationDirection.Left)
+            {
+                champion.StartRotateLeft();
+                champion.WaitSomeMilliseconds(rotationTimeInMilliSeconds);
+                champion.StopRotateLeft();
+            }
+            else
+            {
+                champion.StartRotateRight();
+                champion.WaitSomeMilliseconds(rotationTimeInMilliSeconds);
+                champion.StopRotateRight();
+            }
+
+            champion.StartMovingForward();
+            champion.WaitSomeMilliseconds(moveTimeInMilliseconds);
+            champion.StopMovingForward();
         }
     }
+
+
+
 }
 
 

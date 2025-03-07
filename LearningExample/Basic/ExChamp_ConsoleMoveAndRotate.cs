@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XboxClientQA.LearningExample.Basic
+namespace ClientQA.LearningExample.Basic
 {
     public class ExChamp_ConsoleMoveAndRotate: A_ChampionThreadExample
     {

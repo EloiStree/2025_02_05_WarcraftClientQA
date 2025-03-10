@@ -14,6 +14,7 @@ namespace ClientQA.TeacherCode
         }
         public static void ConvertPixelToIntValue(PixelColor32 pixel, out int value)
         {
+            //rrggbb  999999
             bool isNegativeX = pixel.m_r >= 100;
             pixel.m_r = (byte)(pixel.m_r % 100);
             int bxc = (int)(pixel.m_b);

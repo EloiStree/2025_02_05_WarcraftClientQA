@@ -45,6 +45,21 @@ namespace ClientQA.TeacherCode
         {
 
 
+            //ChampionThread monChampion = new ChampionThread("127.0.0.1", 7073, 0);
+
+
+
+
+            //while(true)
+            //{
+            //    var exercice = new ExerciceSolution_AskPlayerWhereToGo();
+            //    exercice.Run(monChampion);
+            //    Thread.Sleep(1000);
+
+            //    Thread.Sleep(100);
+            //}
+
+
             TDD_WowWorldPositionToAngle.TestAll();
             ChampionThread champion = new ChampionThread("127.0.0.1", 7073, 0);
           
@@ -62,10 +77,10 @@ namespace ClientQA.TeacherCode
             
 
 
-            Vector2 colorAngle = new Vector2(1908, 120);
-            Vector2 colorX = new Vector2(1908, 220);
-            Vector2 colorY = new Vector2(1908, 374);
-            Vector2 colorLifeXp = new Vector2(1908, 525);
+            Vector2 colorAngle = new Vector2(1913, 219);
+            Vector2 colorX = new Vector2(1913, 338);
+            Vector2 colorY = new Vector2(1913, 594);
+            Vector2 colorLifeXp = new Vector2(1913, 860);
 
             while (true) {
 
@@ -107,6 +122,8 @@ namespace ClientQA.TeacherCode
                 whereToGo = new WowWorldPosition(-115,-8769);
                 // Gate
                 whereToGo = new WowWorldPosition(-97.9, -9051.1);
+                // rock
+                whereToGo = new WowWorldPosition(-2555, -377);
 
                 WowWorldPositionUtility.ComputeWowAngleFrom(position, whereToGo, out float angleDirection);
                 WowWorldPositionUtility.ComputeDistance(position, whereToGo, out double distanceInWorldPosition);

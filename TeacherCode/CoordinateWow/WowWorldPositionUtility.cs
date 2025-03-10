@@ -108,7 +108,5 @@ namespace ClientQA.TeacherCode.CoordinateWow
                 angleDestination = (float)inWowDegree;
             }
         }
-
-
     }
 }

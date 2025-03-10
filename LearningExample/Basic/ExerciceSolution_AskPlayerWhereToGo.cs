@@ -43,7 +43,7 @@ namespace ClientQA.LearningExample.Basic
             Console.WriteLine("Enter the player angle");
             playerAngle = float.Parse(Console.ReadLine());
         }
-
+        //-2557 -373
         public void Step01_AskWithConsoleOrigin(out WowWorldPosition origin)
         {
             Console.WriteLine("Enter the origin x");
@@ -64,6 +64,8 @@ namespace ClientQA.LearningExample.Basic
 
         public void Step04_ComputeTheDistance(in WowWorldPosition origin, in WowWorldPosition destination, out double distance)
         {
+            //a*a = b*b + c*c
+            //a = sqrt(b*b + c*c)
             distance = Math.Sqrt(Math.Pow(destination.m_xRightToleft - origin.m_xRightToleft, 2) + Math.Pow(destination.m_yDownToUp - origin.m_yDownToUp, 2));
         }
 

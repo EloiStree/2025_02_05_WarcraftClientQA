@@ -8,7 +8,8 @@ List of learning word:
 - Charleroi: https://github.com/EloiStree/2025_04_11_CharleroiQuestXR/blob/main/README.md
 - Addo on wow: https://github.com/EloiStree/2024_01_18_EloiLabWowAddon
 
-Guide:
+Guide:  
+
 0. [Python to Your first bot in C#](https://github.com/EloiStree/2025_02_05_WarcraftClientQA/blob/main/Wiki/HelloSetupOfClientQA.md)
 1. [Hello Comma](https://github.com/EloiStree/2025_02_05_WarcraftClientQA/blob/main/Wiki/HelloComma.md)
 2. [Hello Birdy](https://github.com/EloiStree/2025_02_05_WarcraftClientQA/blob/main/Wiki/HelloBirdy.md)

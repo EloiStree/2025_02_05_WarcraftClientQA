@@ -6,12 +6,12 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 
-namespace Eloi.TrustedWss
+namespace XboxClientQA.WssConnection
 {
     /// <summary>
     /// I am a class that allows a connection to a websocket server using the WS WSS protocol without password.
     /// </summary>
-    [System.Serializable]
+    [Serializable]
     public class WssTrustedWebsocketIID
     {
         ///Unity version https://github.com/EloiStree/2025_05_01_TrustedWebsocket
@@ -193,10 +193,6 @@ namespace Eloi.TrustedWss
 
                         // Start receiving messages in a separate thread
 
-
-
-
-
                         // Keep the connection alive until disconnected
                         while (client.State == WebSocketState.Open && isRunning)
                         {
@@ -209,7 +205,7 @@ namespace Eloi.TrustedWss
                             while (m_sendStringQueue.Count > 0)
                             {
                                 string textToSend = m_sendStringQueue.Dequeue();
-                                byte[] bytesToSend = System.Text.Encoding.UTF8.GetBytes(textToSend);
+                                byte[] bytesToSend = Encoding.UTF8.GetBytes(textToSend);
                                 client.SendAsync(new ArraySegment<byte>(bytesToSend), WebSocketMessageType.Text, true, CancellationToken.None).Wait();
                             }
                         }

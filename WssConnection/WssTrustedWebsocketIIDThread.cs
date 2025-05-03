@@ -1,4 +1,4 @@
-﻿namespace Eloi.TrustedWss
+﻿namespace XboxClientQA.WssConnection
 {
     public class WssTrustedWebsocketIIDThread
     {
@@ -16,7 +16,7 @@
         public WssTrustedWebsocketIIDThread(string serverUrl = "wss://apint.ddns.net:4725")
         {
             WssTrustedWebsocketIID gameStateAsInt = new WssTrustedWebsocketIID(false);
-            gameStateAsInt.m_onPrint = (string str) =>
+            gameStateAsInt.m_onPrint = (str) =>
             {
                 Console.WriteLine(str);
             };

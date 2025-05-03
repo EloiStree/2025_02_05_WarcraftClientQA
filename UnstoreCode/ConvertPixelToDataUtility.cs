@@ -1,6 +1,7 @@
-﻿using static ClientQA.TeacherCode.TeacherProgram;
+﻿using ClientQA.TeacherCode;
+using static ClientQA.TeacherCode.TeacherProgram;
 
-namespace ClientQA.TeacherCode
+namespace XboxClientQA.UnstoreCode
 {
     public static class ConvertPixelToDataUtility {
 
@@ -17,9 +18,9 @@ namespace ClientQA.TeacherCode
             //rrggbb  999999
             bool isNegativeX = pixel.m_r >= 100;
             pixel.m_r = (byte)(pixel.m_r % 100);
-            int bxc = (int)(pixel.m_b);
-            int gxc = ((int)(pixel.m_g)) * 100;
-            int rxc = ((int)(pixel.m_r)) * 10000;
+            int bxc = pixel.m_b;
+            int gxc = pixel.m_g * 100;
+            int rxc = pixel.m_r * 10000;
             value = (rxc + gxc + bxc) * (isNegativeX ? -1 : 1);
 
 

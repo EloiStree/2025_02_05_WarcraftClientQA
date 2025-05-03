@@ -55,10 +55,9 @@ public partial class ChampionThread {
     public int m_moveHorizontalBackward = WowIntegerKeyboard.ArrowDown;
     public int m_rotateLeft = WowIntegerKeyboard.ArrowLeft;
     public int m_rotateRight = WowIntegerKeyboard.ArrowRight;
+
     public int m_jump = WowIntegerKeyboard.Space;
     public int m_follow = WowIntegerKeyboard.Numpad0;
-
-
 
     public int m_openChat = WowIntegerKeyboard.NumpadDecimal;
     public int m_pitchUp = WowIntegerKeyboard.Insert;
@@ -89,7 +88,7 @@ public partial class ChampionThread {
     public int m_targetParty4 = WowIntegerKeyboard.F5;
     public int m_interactWithTarget = WowIntegerKeyboard.KeyF;
     public int m_ping = WowIntegerKeyboard.KeyG;
-
+    // 
     public int m_frameMilliseconds=50;
     public void WaitOneFrame()=>Thread.Sleep(m_frameMilliseconds);
     public void WaitOneSeconds() { Thread.Sleep(1000); }

@@ -11,3 +11,17 @@ Ce project permet à des étudiants d'apprendre à automatiser des testes par l'
 
 But du jeu, deployer des flottes de recherche anti-bot.
 ![image](https://github.com/user-attachments/assets/b34a9af0-4fbe-49dd-b03d-62af55f70e5c)
+
+
+
+
+
+Color Extraction:
+- https://github.com/EloiStree/2025_03_02_UWCMirror2Warcraft
+- https://github.com/EloiStree/2025_05_03_WowRemoteUwcRelay
+
+Wow Addons to extract
+= https://github.com/EloiStree/2024_01_18_EloiLabWowAddon
+
+Host raspberrypi relay:
+- https://github.com/EloiStree/2025_01_01_TrustedServerAPIntIID

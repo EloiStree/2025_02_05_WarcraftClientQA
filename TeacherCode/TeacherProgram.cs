@@ -19,11 +19,11 @@ using ClientQA.LearningExample.Core;
 using Eloi.Example.Cours;
 using ClientQA.Pickup;
 using XboxClientQA.UWCMirror;
+using Eloi.HelloWorld;
 
 
 namespace ClientQA.TeacherCode
 {
-
 
     public partial class TeacherProgram
     {
@@ -32,6 +32,19 @@ namespace ClientQA.TeacherCode
 
         public static void TeacherMain(string[] args)
         {
+
+            HelloQwertyCode.HelloWowAndQwerty(args);
+
+
+        }
+
+
+
+        public void CodePourBougerLesPersonnages() {
+
+
+
+
 
             // Use the APInt server
             string listernServerUrl = "wss://apint.ddns.net:4725";
@@ -42,11 +55,11 @@ namespace ClientQA.TeacherCode
             UWCMirrorWssTrustedClientListenToWarcraftInt listenToGameInfo = new UWCMirrorWssTrustedClientListenToWarcraftInt(listernServerUrl);
             ChampionThread champion = new ChampionThread(pushUdpServerUrl, pushUdpServerPort, playerIndex);
             string championId = "1402-0AFC1A03";
-            
+
             while (true)
             {
                 listenToGameInfo.TryToFetchPlayerByID(championId, out bool found, out UWCChampionInfo champ);
-                
+
 
                 Console.WriteLine("Enter command: ");
                 string? input = Console.ReadLine();
@@ -56,10 +69,12 @@ namespace ClientQA.TeacherCode
                 }
 
 
-                string [] words = input.Split(" ");
-                foreach (string word in words) {
+                string[] words = input.Split(" ");
+                foreach (string word in words)
+                {
 
-                    switch (word) {
+                    switch (word)
+                    {
 
                         case "ids":
                             listenToGameInfo.GetChampionsId(out List<string> ids);
@@ -68,9 +83,10 @@ namespace ClientQA.TeacherCode
                         case "champions":
 
                             listenToGameInfo.GetChampions(out List<UWCChampionInfo> champions);
-                            foreach ( UWCChampionInfo info in champions) {
+                            foreach (UWCChampionInfo info in champions)
+                            {
 
-                              Console.WriteLine(  info.GetMultilineDescription() );
+                                Console.WriteLine(info.GetMultilineDescription());
 
                             }
                             break;
@@ -86,10 +102,8 @@ namespace ClientQA.TeacherCode
                     }
                 }
 
-                
-
                 // Anti busy loop
-                Thread.Sleep(10) ;
+                Thread.Sleep(10);
             }
         }
     }

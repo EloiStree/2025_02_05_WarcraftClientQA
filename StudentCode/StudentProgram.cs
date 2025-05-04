@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Eloi.HelloWorld;
 
 namespace ClientQA.StudentCode
 {
@@ -29,10 +30,8 @@ namespace ClientQA.StudentCode
     {
         public static void StudentMain(params string[] args)
         {
-            // ADD YOUR COdE HERE AND ONLY IN THIS FOLDER STUDENT
-
-
-
+            Console.WriteLine("Hello Wow !");
+            // ADD YOUR CODE HERE AND ONLY IN THIS FOLDER STUDENT
 
         }
 

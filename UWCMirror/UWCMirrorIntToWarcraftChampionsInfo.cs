@@ -1,4 +1,6 @@
-﻿using XboxClientQA.WssConnection;
+﻿using System.Security.Cryptography.X509Certificates;
+using XboxClientQA.UdpListenerToIID;
+using XboxClientQA.WssConnection;
 
 namespace XboxClientQA.UWCMirror
 {
@@ -6,7 +8,7 @@ namespace XboxClientQA.UWCMirror
     /// I am class that receive integer and reconstruct the info of the scraped game data using UWC
     /// https://github.com/EloiStree/2025_03_02_UWCMirror2Warcraft
     /// </summary>
-    public class UWCMirrorWssTrustedClientListenToWarcraftInt
+    public class UWCMirrorIntToWarcraftChampionsInfo
     {
 
 
@@ -19,27 +21,8 @@ namespace XboxClientQA.UWCMirror
 
 
         int indexFilter = -40;
-        public UWCMirrorWssTrustedClientListenToWarcraftInt(string serverUrl)
+        internal void PushInInteger(int value)
         {
-
-            WssTrustedWebsocketIIDThread listener = new WssTrustedWebsocketIIDThread(serverUrl);
-            listener.AddBytesReceived((b) =>
-            {
-                if (b == null || b.Length <= 0)
-                    return;
-
-                int lenght = b.Length;
-                if (lenght == 16)
-                {
-
-                    int index = BitConverter.ToInt32(b, 0);
-                    if (index != indexFilter) return;
-
-                    int value = BitConverter.ToInt32(b, 4);
-                    ulong date = BitConverter.ToUInt64(b, 8);
-                    //Console.WriteLine($"index {index} value {value} date {date}");
-
-                    // Add Code Here
 
                     int playerIndexTag = value / 100000000;
 
@@ -274,8 +257,7 @@ namespace XboxClientQA.UWCMirror
                         }
 
                     }
-                }
-            });
+                
         }
 
         public void AddPrintDebugOnPlayerAdd()
@@ -327,6 +309,19 @@ namespace XboxClientQA.UWCMirror
             else 
 
                 champions = m_championsFromInteger.Values.ToList();
+        }
+
+       
+
+        internal void PushInBytesIID(byte[] obj)
+        {
+            if (obj == null || obj.Length <= 0)
+                return;
+
+
+            int value =ParseGivenBytesToIntegerFromIID.ParseByteToInt(obj);
+            //Console.WriteLine($"PushInBytesIID {value}");
+            PushInInteger(value);
         }
     }
 }

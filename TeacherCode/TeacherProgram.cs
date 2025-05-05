@@ -20,6 +20,8 @@ using Eloi.Example.Cours;
 using ClientQA.Pickup;
 using XboxClientQA.UWCMirror;
 using Eloi.HelloWorld;
+using XboxClientQA.UdpListenerToIID;
+using XboxClientQA.WssConnection;
 
 
 namespace ClientQA.TeacherCode
@@ -33,14 +35,15 @@ namespace ClientQA.TeacherCode
         public static void TeacherMain(string[] args)
         {
 
-            HelloQwertyCode.HelloWowAndQwerty(args);
+            CodePourBougerLesPersonnages();
+            //HelloQwertyCode.HelloWowAndQwerty(args);
 
 
         }
 
 
 
-        public void CodePourBougerLesPersonnages() {
+        public static void CodePourBougerLesPersonnages() {
 
 
 
@@ -52,7 +55,16 @@ namespace ClientQA.TeacherCode
             int pushUdpServerPort = 3615;
             int playerIndex = 0;
 
-            UWCMirrorWssTrustedClientListenToWarcraftInt listenToGameInfo = new UWCMirrorWssTrustedClientListenToWarcraftInt(listernServerUrl);
+
+
+            UWCMirrorIntToWarcraftChampionsInfo listenToGameInfo = new UWCMirrorIntToWarcraftChampionsInfo();
+
+            UDPListenerBytesToIID udpListener = new UDPListenerBytesToIID(6999);
+            udpListener.AddBytesReceivedHandler(listenToGameInfo.PushInBytesIID);
+
+            //WssTrustedWebsocketIIDThread listener = new WssTrustedWebsocketIIDThread(listernServerUrl);
+            //listener.AddBytesReceivedHandler(listenToGameInfo.PushInBytesIID);
+
             ChampionThread champion = new ChampionThread(pushUdpServerUrl, pushUdpServerPort, playerIndex);
             string championId = "1402-0AFC1A03";
 

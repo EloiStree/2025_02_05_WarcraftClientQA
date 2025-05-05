@@ -27,7 +27,7 @@
             LaunchLoopListener();
         }
 
-        public void AddBytesReceived(Action<byte[]> onBytesReceived)
+        public void AddBytesReceivedHandler(Action<byte[]> onBytesReceived)
         {
             m_onBytesReceived += onBytesReceived;
         }

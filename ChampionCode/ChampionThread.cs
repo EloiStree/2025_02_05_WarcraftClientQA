@@ -648,7 +648,21 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         }
     }
 
-    
+    internal void GetWalkSpeedByDefault(out float leftFrontRightSpeed, out float backwardSpeed)
+    {
+        leftFrontRightSpeed = m_speedMoveForward;
+        backwardSpeed = m_speedMoveBackward;
+    }
+
+    public float m_speedMoveForwardSteady = 225 / 20f;
+    public float m_speedMoveBackSteady = 4f;
+
+    public void GetSteadyFlySpeedByDefault(out float leftFrontRightSpeed, out float backwardSpeed)
+    {
+        leftFrontRightSpeed = m_speedMoveForwardSteady;
+        backwardSpeed = m_speedMoveBackSteady;
+    }
+
 }
 
 

@@ -22,6 +22,8 @@ using XboxClientQA.UWCMirror;
 using Eloi.HelloWorld;
 using XboxClientQA.UdpListenerToIID;
 using XboxClientQA.WssConnection;
+using Eloi.Toolbox;
+
 
 
 namespace ClientQA.TeacherCode
@@ -35,7 +37,70 @@ namespace ClientQA.TeacherCode
         public static void TeacherMain(string[] args)
         {
 
-            CodePourBougerLesPersonnages();
+            {
+
+                DestructorExampleForFun a = new DestructorExampleForFun();
+                a.SayHello();
+
+            }
+            ChampionThread champion = null;
+            bool useFormationPC = false;
+            if (useFormationPC)
+            {
+                champion = new ChampionThread("10.32.23.200", 7073, 0 );
+            }
+            else
+            {
+                champion = new ChampionThread("127.0.0.1", 7073, 0);
+            }
+
+            UnityVector2 move10Forward = new UnityVector2(0, 10);
+            UnityVector2 move10Backward = new UnityVector2(0, -10);
+            UnityVector2 move10Left = new UnityVector2(-10, 0);
+            UnityVector2 move10Right = new UnityVector2(10, 0);
+
+
+            //Console.WriteLine("Go forward 10 units");
+            //MoveChampionTools.TranslateInSeconds(
+            //    champion, move10Forward
+            //    );
+            Console.WriteLine("Go right 10 units");
+            MoveChampionTools.TranslateInSeconds(
+                champion, move10Right
+                );
+
+            Thread.Sleep(10000);
+            //Console.WriteLine("Go left 10 units");
+            //MoveChampionTools.TranslateInSeconds(
+            //    champion, move10Left
+            //    );
+
+            //Console.WriteLine("Go backward 10 units");
+            //MoveChampionTools.TranslateInSeconds(
+            //    champion, move10Backward
+            //    );
+
+            //float moveSpeedForwardInAir = 225 / 10;
+            //Console.WriteLine("Go forward 10 units");
+            //MoveChampionTools.TranslateInDistance(
+            //    champion, move10Forward, moveSpeedForwardInAir, moveSpeedForwardInAir
+            //    );
+            //Console.WriteLine("Go right 10 units");
+            //MoveChampionTools.TranslateInDistance(
+            //    champion, move10Right, moveSpeedForwardInAir, moveSpeedForwardInAir
+            //    );
+            //Console.WriteLine("Go left 10 units");
+            //MoveChampionTools.TranslateInDistance(
+            //    champion, move10Left, moveSpeedForwardInAir, moveSpeedForwardInAir
+            //    );
+
+
+
+            return;
+            //HowToUseUnityVector2.Test(champion);
+
+
+            //CodePourBougerLesPersonnages();
             //HelloQwertyCode.HelloWowAndQwerty(args);
 
 
@@ -47,6 +112,7 @@ namespace ClientQA.TeacherCode
 
 
 
+            
 
 
             // Use the APInt server
@@ -57,10 +123,11 @@ namespace ClientQA.TeacherCode
 
 
 
-            UWCMirrorIntToWarcraftChampionsInfo listenToGameInfo = new UWCMirrorIntToWarcraftChampionsInfo();
+            UWCMirrorIntToWarcraftChampionsInfo listenToGameInfo = 
+                new UWCMirrorIntToWarcraftChampionsInfo();
 
             UDPListenerBytesToIID udpListener = new UDPListenerBytesToIID(6999);
-            udpListener.AddBytesReceivedHandler(listenToGameInfo.PushInBytesIID);
+            udpListener.AddBytesReceivedHandler(listenToGameInfo.PushInBytesIID); 
 
             //WssTrustedWebsocketIIDThread listener = new WssTrustedWebsocketIIDThread(listernServerUrl);
             //listener.AddBytesReceivedHandler(listenToGameInfo.PushInBytesIID);
@@ -119,4 +186,41 @@ namespace ClientQA.TeacherCode
             }
         }
     }
+
+
+    /// <summary>
+    /// For the fun a demonstration of the destructor and constructor and when it is called.
+    /// </summary>
+    public class DestructorExampleForFun
+    {
+        static DestructorExampleForFun()
+        {
+            Console.WriteLine("Static constructor called.");
+            AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
+        }
+
+        public DestructorExampleForFun()
+        {
+            Console.WriteLine("Constructor called.");
+        }
+
+
+        public void SayHello()
+        {
+            Console.WriteLine("Hello from DestructorExampleForFun!");
+        }
+
+        ~DestructorExampleForFun()
+        {
+            Console.WriteLine("Destructor called.");
+        }
+
+        private static void OnProcessExit(object? sender, EventArgs e)
+        {
+            Console.WriteLine("Static destructor called on process exit.");
+        }
+    }
+
 }
+
+

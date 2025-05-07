@@ -37,6 +37,45 @@ namespace ClientQA.TeacherCode
         public static void TeacherMain(string[] args)
         {
 
+            int rest = 10 % 3;
+            Console.WriteLine($"10 % 3 = {rest}");
+
+            int exposant = 10 ^ 5;
+            Console.WriteLine($"10 ^ 5 = {exposant}");
+
+            bool  andExample = ((true & true) | (true & false));
+            Console.WriteLine($"And = {andExample}");
+
+
+
+            while (true)
+            {
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine("Hello World!");
+            }
+
+            UnityVector2 start = new UnityVector2(5, 0);
+            start.X=5;
+
+            UnityVector2 end = 
+                new UnityVector2("654.2", "564");
+
+            Console.WriteLine($"start: {start.X}");
+
+
+            Console.WriteLine($"Distance: {start.GetDistance()}");
+            end.GetDistance(out float distanceEnd);
+            Console.WriteLine($"Distance: {distanceEnd}");
+
+
+            UnityVector2 versDroite = UnityVector2.RIGHT;
+            Console.WriteLine($"{versDroite}");
+
+
+
+
+
             {
 
                 DestructorExampleForFun a = new DestructorExampleForFun();
@@ -44,7 +83,7 @@ namespace ClientQA.TeacherCode
 
             }
             ChampionThread champion = null;
-            bool useFormationPC = false;
+            bool useFormationPC = true;
             if (useFormationPC)
             {
                 champion = new ChampionThread("10.32.23.200", 7073, 0 );

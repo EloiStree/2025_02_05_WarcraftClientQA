@@ -17,7 +17,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 // Keyword: Linq https://github.com/EloiStree/HelloSharpForUnity3D/issues/223
-using System.Linq;
+using System.Linq; 
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -114,7 +114,7 @@ Learn what to code: {urlToLearn}
             //Keyword: get  https://github.com/EloiStree/HelloSharpForUnity3D/issues/300
             get { return m_x; }
 
-            //Keyword: https://github.com/EloiStree/HelloSharpForUnity3D/issues/301
+            //Keyword: set https://github.com/EloiStree/HelloSharpForUnity3D/issues/301
             set { m_x = value; }
         }
 
@@ -205,6 +205,12 @@ Learn what to code: {urlToLearn}
             m_x = x;
             m_y = y;
         }
+        public UnityVector2(string x, string y)
+        {
+            float.TryParse(x, out m_x);
+            float.TryParse(y, out m_y);
+
+        }
 
         #endregion
 
@@ -249,7 +255,7 @@ Learn what to code: {urlToLearn}
         {
 
             // Keyword: distance https://github.com/EloiStree/HelloSharpForUnity3D/issues/559
-            distance = (float)Math.Sqrt(m_x * m_x + m_y * m_y);
+            distance = (float)Math.Sqrt((m_x * m_x )+ (m_y * m_y));
         }
         #endregion
 

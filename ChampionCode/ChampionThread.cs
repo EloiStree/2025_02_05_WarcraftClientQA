@@ -3,6 +3,7 @@ using System.Numerics;
 using ClientQA.LearningExample.Basic;
 using ClientQA.TeacherCode.CoordinateWow;
 using ClientQA.UtilityCode;
+using Eloi.Toolbox;
 
 //public class WowCalculator {
 
@@ -652,7 +653,7 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         }
     }
 
-    internal void GetWalkSpeedByDefault(out float leftFrontRightSpeed, out float backwardSpeed)
+    public void GetWalkSpeedByDefault(out float leftFrontRightSpeed, out float backwardSpeed)
     {
         leftFrontRightSpeed = m_speedMoveForward;
         backwardSpeed = m_speedMoveBackward;
@@ -704,6 +705,37 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         StartMovingForward();
         WaitSomeMilliseconds(millisecondsMoveForward);
         StopMovingForward();
+    }
+
+
+
+    public void TranslateInSeconds(UnityVector2 localDirectionInSeconds)
+    {
+
+        MoveChampionTools.TranslateInSeconds(this, localDirectionInSeconds);
+    }
+    public void TranslateInDistanceWalk(UnityVector2 localDirectionInSeconds)
+    {
+
+        MoveChampionTools.TranslateInDistance(this, localDirectionInSeconds, m_speedMoveForward, m_speedMoveBackward);
+    }
+    public void TranslateInDistanceSteadyFly(UnityVector2 localDirectionInSeconds)
+    {
+        MoveChampionTools.TranslateInDistance(this, localDirectionInSeconds, m_speedMoveForwardSteadyFly, m_speedMoveBackSteady);
+    }
+    public  void TranslateOfDistanceWalkSequence( params UnityVector2[] directions)
+    {
+        foreach (var direction in directions)
+        {
+            TranslateInDistanceWalk( direction);
+        }
+    }
+    public  void TranslateOfDistanceSteadyFlySequence( params UnityVector2[] directions)
+    {
+        foreach (var direction in directions)
+        {
+            TranslateInDistanceSteadyFly( direction);
+        }
     }
 
     public void MoveFromToWalk(float angle, WowWorldPosition origin, WowWorldPosition destination)

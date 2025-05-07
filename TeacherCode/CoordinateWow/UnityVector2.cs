@@ -684,15 +684,16 @@ Learn what to code: {urlToLearn}
             float absX = Math.Abs(directionEnSeconds.X);
             float absY = Math.Abs(directionEnSeconds.Y);
 
-            bool useExperimental = true;
+            bool useExperimental = false;
             if (useExperimental)
             {
+                // There is bug in this code  so i switch to old code
 
                 if (isGoingRight)
                 {
                     champion.StartStrafeRight();
                 }
-                else if (isGoingLeft)
+                 if (isGoingLeft)
                 {
                     champion.StartStrafeLeft();
                 }
@@ -700,7 +701,7 @@ Learn what to code: {urlToLearn}
                 {
                     champion.StartMovingForward();
                 }
-                else if (isGoingBackward)
+                 if (isGoingBackward)
                 {
                     champion.StartMovingBackward();
                 }
@@ -743,7 +744,7 @@ Learn what to code: {urlToLearn}
                     {
                         champion.StopMovingForward();
                     }
-                    else if (isGoingBackward)
+                     if (isGoingBackward)
                     {
                         champion.StopMovingBackward();
                     }
@@ -752,7 +753,7 @@ Learn what to code: {urlToLearn}
                     {
                         champion.StopStrafeRight();
                     }
-                    else if (isGoingLeft)
+                     if (isGoingLeft)
                     {
                         champion.StopStrafeLeft();
                     }

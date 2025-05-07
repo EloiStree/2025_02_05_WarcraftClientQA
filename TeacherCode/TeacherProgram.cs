@@ -253,6 +253,26 @@ namespace ClientQA.TeacherCode
                             //Console.WriteLine($"Player Angle {angleDirection} Direction {angleDirection}");
                             //ConsoleWowCoord.MoveBetweenTwoWorldPoints(champion);
                             break;
+
+                        case "dirtest":
+                            champion.TranslateOfDistanceWalkSequence(
+                                new UnityVector2(0, 10),
+                                new UnityVector2(10, 0),
+                                new UnityVector2(0, -10),
+                                new UnityVector2(-10, 0)
+                            );
+                            break;
+                        case "dirtestfly":
+                            champion.TranslateOfDistanceSteadyFlySequence(
+                                new UnityVector2(0, 10),
+                                new UnityVector2(10, 0),
+                                new UnityVector2(0, -10),
+                                new UnityVector2(-10, 0),
+                                new UnityVector2(100, 100),
+                                new UnityVector2(-100, -100)
+                            );
+                            break;
+
                         case "ids":
                             listenToGameInfo.GetChampionsId(out List<string> ids);
                             Console.WriteLine(string.Join(", ", ids));

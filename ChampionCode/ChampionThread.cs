@@ -1,5 +1,6 @@
 ﻿
 using System.Numerics;
+using ClientQA.LearningExample.Basic;
 using ClientQA.TeacherCode.CoordinateWow;
 using ClientQA.UtilityCode;
 
@@ -45,6 +46,9 @@ public partial class ChampionThread {
             if (found)
                 Console.WriteLine("E:" + command);
         });
+
+
+
     }
 
 
@@ -661,6 +665,52 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
     {
         leftFrontRightSpeed = m_speedMoveForwardSteady;
         backwardSpeed = m_speedMoveBackSteady;
+    }
+
+    public void PushIntegerToTarget(int index, int value)
+    {
+        m_sender.PushInteger(index, value);
+    }
+
+    public void MoveFromTo(
+        float currentAngle,
+        WowWorldPosition origin,
+        WowWorldPosition destination,
+        float moveForwardSpeed,
+        float rotateAnglePerSeconds)
+    {
+        WowWorldPositionUtility.ComputeWowAngleFrom(origin, destination, out float angleDestination);
+        WowSetToDirectionAngle.ComputeDirectionFromTo(
+        currentAngle, angleDestination,
+        out bool isRight, out float angleToRotate);
+
+        RotationDirection rotationDirection = isRight ? RotationDirection.Right : RotationDirection.Left;
+        int millisecondsToRotate = (int)((angleToRotate / rotateAnglePerSeconds) * 1000);
+        if (rotationDirection == RotationDirection.Left)
+        {
+            StartRotateLeft();
+            WaitSomeMilliseconds(millisecondsToRotate);
+            StopRotateLeft();
+        }
+        else
+        {
+           StartRotateRight();
+           WaitSomeMilliseconds(millisecondsToRotate);
+           StopRotateRight();
+        }
+        WowWorldPositionUtility.ComputeDistance(origin, destination, out double distances);
+        int millisecondsMoveForward =(int)(( distances / (double)moveForwardSpeed) * 1000f);
+        //Console.WriteLine($"{millisecondsMoveForward} , {distances} , {moveForwardSpeed}");
+
+        StartMovingForward();
+        WaitSomeMilliseconds(millisecondsMoveForward);
+        StopMovingForward();
+    }
+
+    public void MoveFromToWalk(float angle, WowWorldPosition origin, WowWorldPosition destination)
+    {
+        MoveFromTo(angle, origin, destination, this.m_speedMoveForward, m_rotationAngle);
+
     }
 
 }

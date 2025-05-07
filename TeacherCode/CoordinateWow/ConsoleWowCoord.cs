@@ -27,7 +27,7 @@ namespace ClientQA.TeacherCode.CoordinateWow
         public static void AskForDirectionInfo(
             out WowMapCoord origin,
             out WowMapCoord target,
-            out float distance,
+            out float mapUnityDistance,
             out bool isRightDirection,
             out float angleToRotate,
             out float rotationTime,
@@ -39,7 +39,7 @@ namespace ClientQA.TeacherCode.CoordinateWow
             WowMapCoord.GetCountClockwiseAngle(
                 origin, target,
                 out float dirAngle);
-            distance = WowMapCoord.GetDistanceBetween(origin, target);
+            mapUnityDistance = WowMapCoord.GetDistanceBetween(origin, target);
             WowSetToDirectionAngle
                 .ComputeDirectionFromTo(origin.Angle, dirAngle,
                 out isRightDirection, out angleToRotate);
@@ -47,7 +47,7 @@ namespace ClientQA.TeacherCode.CoordinateWow
                 Rotate(angleToRotate, out rotationTime);
 
             if (debugConsole) { 
-                Console.WriteLine("Distance: " + distance);
+                Console.WriteLine("Distance in map measure: " + mapUnityDistance);
                 Console.WriteLine("Direction Angle: " + dirAngle);
                 Console.WriteLine("Is Left Direction: " + isRightDirection);
                 Console.WriteLine("Angle To Rotate: " + angleToRotate);

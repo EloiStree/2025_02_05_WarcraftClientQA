@@ -32,23 +32,32 @@ public class PushIntegerToGameUDP
     /// <param name="integerValue"></param>
     public void PushInteger(int integerValue)
     {
-        // Créé un outil pour envoyé un message en UDP via le réseaux
-        m_udpClient = new UdpClient();
-        // Convertir un integer représentant le joueur en binaire 10101010 de 32 bits et donc 4 bytes
-        byte[] bytesIndex = BitConverter.GetBytes(m_playerIndex);
-        // Pareil mais pour la valeur en entier à envoyer
-        byte[] bytesInteger = BitConverter.GetBytes(integerValue);
-        // On prépare un tableau de 8 bytes pour stocker deux entiers
-        byte[] bytesToSend = new byte[bytesIndex.Length + bytesInteger.Length];
-        // On copie l'index dans le tableau
-        bytesIndex.CopyTo(bytesToSend, 0);
-        // On copie l'action en integer à envoyer dans le tableau
-        bytesInteger.CopyTo(bytesToSend, bytesIndex.Length);
-        // Tout est prêt, on l'envoi à la cible sur le réseau.
-        m_udpClient.Send(bytesToSend, bytesToSend.Length, m_ipAddressIpv4, m_port);
-        // On ferme l'outil qui nous permet d'envoyé sur le réseaux.
-        m_udpClient.Close();
+        PushInteger(m_playerIndex, integerValue);
 
+    }
+
+    public void PushInteger(int index, int integerValue)
+    {
+        // Créé un outil pour envoyé un message en UDP via le réseaux  
+        m_udpClient = new UdpClient();
+        // Convertir un integer représentant le joueur en binaire 10101010 de 32 bits et donc 4 bytes (Little Endian)  
+        byte[] bytesIndex = BitConverter.GetBytes(index);
+        byte[] bytesInteger = BitConverter.GetBytes(integerValue);
+
+        if (!BitConverter.IsLittleEndian)
+        {
+            Array.Reverse(bytesIndex);
+            Array.Reverse(bytesInteger);
+        }
+
+        // On prépare un tableau de 8 bytes pour stocker deux entiers  
+        byte[] bytesToSend = new byte[bytesIndex.Length + bytesInteger.Length];
+        bytesIndex.CopyTo(bytesToSend, 0);
+        bytesInteger.CopyTo(bytesToSend, bytesIndex.Length);
+
+        // Tout est prêt, on l'envoi à la cible sur le réseau.  
+        m_udpClient.Send(bytesToSend, bytesToSend.Length, m_ipAddressIpv4, m_port);
+        m_udpClient.Close();
     }
 
 
@@ -66,6 +75,7 @@ public class PushIntegerToGameUDP
     {
         m_port = defaultPort;
     }
+
 }
 
 

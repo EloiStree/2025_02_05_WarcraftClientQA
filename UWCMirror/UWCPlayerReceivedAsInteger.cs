@@ -23,6 +23,8 @@
         public int m_i15TargetIdPartThree;
         public int m_i16TargetLifePercent;
         public int m_i17TargetPowerPercent;
+        internal int m_i18TargetWindowHandle;
+        internal int m_i19TargetWindowHandle;
     }
 
 }

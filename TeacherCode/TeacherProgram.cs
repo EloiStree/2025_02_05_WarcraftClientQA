@@ -180,7 +180,7 @@ namespace ClientQA.TeacherCode
 
 
             //}
-            string championId = "1402-0AFCAB50";
+            string championId = "1402-0AF12064";
 
             while (true)
             {
@@ -225,7 +225,18 @@ namespace ClientQA.TeacherCode
                               champion.StartMovingForwardFor(mapDistance*10.12354f);
 
                             break;
-                        case "gotoworld":
+
+                        case "flyto":
+                            Console.WriteLine("Enter X destination: ");
+                            float xFly = float.Parse(Console.ReadLine());
+                            Console.WriteLine("Enter Y destination: ");
+                            float yFly = float.Parse(Console.ReadLine());
+                            WowWorldPosition destinationFly = new WowWorldPosition(xFly, yFly);
+                            WowWorldPosition originFly = new WowWorldPosition(champFound.m_worldX, champFound.m_worldY);
+                            champion.MoveFromToSteadyFly(champFound.m_angle360, originFly, destinationFly);
+                            break;
+
+                        case "goto":
 
 
                             Console.WriteLine("Enter X destination: ");

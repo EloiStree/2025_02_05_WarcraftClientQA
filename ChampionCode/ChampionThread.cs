@@ -658,12 +658,12 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         backwardSpeed = m_speedMoveBackward;
     }
 
-    public float m_speedMoveForwardSteady = 225 / 20f;
+    public float m_speedMoveForwardSteadyFly = 225f / 10f;
     public float m_speedMoveBackSteady = 4f;
 
     public void GetSteadyFlySpeedByDefault(out float leftFrontRightSpeed, out float backwardSpeed)
     {
-        leftFrontRightSpeed = m_speedMoveForwardSteady;
+        leftFrontRightSpeed = m_speedMoveForwardSteadyFly;
         backwardSpeed = m_speedMoveBackSteady;
     }
 
@@ -700,7 +700,6 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         }
         WowWorldPositionUtility.ComputeDistance(origin, destination, out double distances);
         int millisecondsMoveForward =(int)(( distances / (double)moveForwardSpeed) * 1000f);
-        //Console.WriteLine($"{millisecondsMoveForward} , {distances} , {moveForwardSpeed}");
 
         StartMovingForward();
         WaitSomeMilliseconds(millisecondsMoveForward);
@@ -710,6 +709,11 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
     public void MoveFromToWalk(float angle, WowWorldPosition origin, WowWorldPosition destination)
     {
         MoveFromTo(angle, origin, destination, this.m_speedMoveForward, m_rotationAngle);
+
+    }
+    public void MoveFromToSteadyFly(float angle, WowWorldPosition origin, WowWorldPosition destination)
+    {
+        MoveFromTo(angle, origin, destination, this.m_speedMoveForwardSteadyFly, m_rotationAngle);
 
     }
 

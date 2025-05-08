@@ -17,7 +17,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 // Keyword: Linq https://github.com/EloiStree/HelloSharpForUnity3D/issues/223
-using System.Linq; 
+using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -27,23 +27,6 @@ using ClientQA.TeacherCode;
 // Keyword: namespace https://github.com/EloiStree/HelloSharpForUnity3D/issues/90
 namespace Eloi.Toolbox
 {
-    // Keyword: NotImplementedException 
-    // Keyword: Exception 
-    public class LearningException : System.NotImplementedException
-    {
-
-
-        // Keyword: @ https://github.com/EloiStree/HelloSharpForUnity3D/issues/405
-        // Keyword: $ https://github.com/EloiStree/HelloSharpForUnity3D/issues/522
-        // Keyword: $@ https://github.com/EloiStree/HelloSharpForUnity3D/issues/556
-        public LearningException(string whatToCode, string urlToLearn) : base($@"
-        You did not code it yets ;).
-What to code : {whatToCode}
-Learn what to code: {urlToLearn}
-        ")
-        {
-        }
-    }
 
 
     public class HowToUseUnityVector2 {
@@ -183,7 +166,7 @@ Learn what to code: {urlToLearn}
         }
         public bool IsMagnitudeBiggerThat(float magnitudeDistance)
         {
-            return GetDistance() >magnitudeDistance;
+            return GetDistance() > magnitudeDistance;
         }
         public bool IsEqualsZero()
         {
@@ -255,7 +238,7 @@ Learn what to code: {urlToLearn}
         {
 
             // Keyword: distance https://github.com/EloiStree/HelloSharpForUnity3D/issues/559
-            distance = (float)Math.Sqrt((m_x * m_x )+ (m_y * m_y));
+            distance = (float)Math.Sqrt((m_x * m_x) + (m_y * m_y));
         }
         #endregion
 
@@ -299,16 +282,16 @@ Learn what to code: {urlToLearn}
 
         public static void GetAngleBetweenThreePoints(
             in UnityVector2 from, in UnityVector2 center, in UnityVector2 to, out float angle)
-             {
-            UnityVector2 directonA = from-center;
-            UnityVector2 directonB = to-center;
+        {
+            UnityVector2 directonA = from - center;
+            UnityVector2 directonB = to - center;
             GetAngle(directonA, directonB, out angle);
 
         }
 
 
 
-        public static float GetDistance(in  UnityVector2 a, in UnityVector2 b)
+        public static float GetDistance(in UnityVector2 a, in UnityVector2 b)
         {
             return (float)Math.Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y));
         }
@@ -492,7 +475,7 @@ Learn what to code: {urlToLearn}
             SOUTH_WEST
         }
 
-        public void SetDirectionEnum(DirectionArrow direction, float distanceMultiplicator=1f)
+        public void SetDirectionEnum(DirectionArrow direction, float distanceMultiplicator = 1f)
         {
             switch (direction)
             {
@@ -603,187 +586,4 @@ Learn what to code: {urlToLearn}
         #endregion
 
     }
-
-    /// <summary>
-    ///  FlySteady 21 per seconds left forward right
-    ///  FlyStedy 4 per seconds backward
-    ///  
-    /// </summary>
-    // Keyword: static class https://github.com/EloiStree/HelloSharpForUnity3D/issues/39
-
-    public static class MoveChampionTools {
-
-
-
-        public static void TranslateOfDistanceWalkSequence(ChampionThread champions, params UnityVector2[] directions)
-        {
-            foreach (var direction in directions)
-            {
-                TranslateOfDistanceWalk(champions, direction);
-            }
-        }
-        public static void TranslateOfDistanceSteadyFlySequence(ChampionThread champions, params UnityVector2[] directions)
-        {
-            foreach (var direction in directions)
-            {
-                TranslateOfDistanceSteadyFly(champions, direction);
-            }
-        }
-
-        public static void TranslateOfDistanceWalk(ChampionThread champion, UnityVector2 direction)
-        {
-
-            champion.GetWalkSpeedByDefault(out float leftFrontRightSpeed, out float backwardSpeed);
-            TranslateInDistance(champion, direction, leftFrontRightSpeed, backwardSpeed);
-        }
-
-        public static void TranslateOfDistanceSteadyFly(ChampionThread champion, UnityVector2 direction)
-        {
-
-            champion.GetSteadyFlySpeedByDefault(out float leftFrontRightSpeed, out float backwardSpeed);
-            TranslateInDistance(champion, direction, leftFrontRightSpeed, backwardSpeed);
-        }
-
-
-
-
-        public static void TranslateInDistance(ChampionThread champion,
-            UnityVector2 directionInDistance, float leftFrontRightSpeed, float backwardSpeed)
-        {
-            UnityVector2 distancsInSeconds = new UnityVector2();
-            if (directionInDistance.X > 0)
-            {
-                distancsInSeconds.X = directionInDistance.X / leftFrontRightSpeed;
-            }
-            else if (directionInDistance.X < 0)
-            {
-                distancsInSeconds.X = directionInDistance.X / leftFrontRightSpeed;
-            }
-            if (directionInDistance.Y > 0)
-            {
-                distancsInSeconds.Y = directionInDistance.Y / leftFrontRightSpeed;
-            }
-            else if (directionInDistance.Y < 0)
-            {
-                distancsInSeconds.Y = directionInDistance.Y / backwardSpeed;
-            }
-
-            TranslateInSeconds(champion, distancsInSeconds);
-
-        }
-
-        public static void TranslateInSeconds(
-            ChampionThread champion,
-            UnityVector2 directionEnSeconds
-            )
-        {
-            bool isGoingRight = directionEnSeconds.X > 0;
-            bool isGoingLeft = directionEnSeconds.X < 0;
-            bool isGoingForward = directionEnSeconds.Y > 0;
-            bool isGoingBackward = directionEnSeconds.Y < 0;
-            float absX = Math.Abs(directionEnSeconds.X);
-            float absY = Math.Abs(directionEnSeconds.Y);
-
-            bool useExperimental = false;
-            if (useExperimental)
-            {
-                // There is bug in this code  so i switch to old code
-
-                if (isGoingRight)
-                {
-                    champion.StartStrafeRight();
-                }
-                 if (isGoingLeft)
-                {
-                    champion.StartStrafeLeft();
-                }
-                if (isGoingForward)
-                {
-                    champion.StartMovingForward();
-                }
-                 if (isGoingBackward)
-                {
-                    champion.StartMovingBackward();
-                }
-
-
-                // Check if x is less that y
-                if (absX < absY) {
-
-
-                    float firstWait = absX;
-                    float secondWait = absY - absX;
-
-                    champion.WaitSomeSeconds(firstWait);
-                    if (isGoingRight)
-                    {
-                        champion.StopStrafeRight();
-                    }
-                    else if (isGoingLeft)
-                    {
-                        champion.StopStrafeLeft();
-                    }
-
-                    champion.WaitSomeSeconds(secondWait);
-                    if (isGoingForward)
-                    {
-                        champion.StopMovingForward();
-                    }
-                    else if (isGoingBackward)
-                    {
-                        champion.StopMovingBackward();
-                    }
-
-                }
-                else if (absY < absX)
-                {
-                    float firstWait = absY;
-                    float secondWait = absX - absY;
-                    champion.WaitSomeSeconds(firstWait);
-                    if (isGoingForward)
-                    {
-                        champion.StopMovingForward();
-                    }
-                     if (isGoingBackward)
-                    {
-                        champion.StopMovingBackward();
-                    }
-                    champion.WaitSomeSeconds(secondWait);
-                    if (isGoingRight)
-                    {
-                        champion.StopStrafeRight();
-                    }
-                     if (isGoingLeft)
-                    {
-                        champion.StopStrafeLeft();
-                    }
-                }
-
-            }
-            else {
-
-                // Dumb easy code
-                if (directionEnSeconds.X < 0)
-                {
-                    champion.StartStrafeLeftFor(Math.Abs(directionEnSeconds.X));
-                }
-                else if (directionEnSeconds.X > 0)
-                {
-                    champion.StartStrafeRightFor(Math.Abs(directionEnSeconds.X));
-                }
-                if (directionEnSeconds.Y < 0)
-                {
-                    champion.StartMovingBackwardFor(Math.Abs(directionEnSeconds.Y));
-                }
-                else if (directionEnSeconds.Y > 0)
-                {
-                    champion.StartMovingForwardFor(Math.Abs(directionEnSeconds.Y));
-                }
-            }
-
-
-        }
-
-    }
-
 }

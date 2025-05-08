@@ -155,9 +155,16 @@ namespace ClientQA.TeacherCode
             int pushUdpServerPort = 3615;
             int playerIndex = 0;
 
+            string path= @"C:\Git\wow\HelloWowMapPathAndPoint";
+            FolderToPathAndPoints folderToPathAndPoints = new FolderToPathAndPoints(path);
+            folderToPathAndPoints.GetAlias(out List<string> alias);
+           
+                Console.WriteLine($"Alias: {string.Join(",",alias)})"); 
+
+          
 
 
-            UWCMirrorIntToWarcraftChampionsInfo listenToGameInfo = 
+                UWCMirrorIntToWarcraftChampionsInfo listenToGameInfo = 
                 new UWCMirrorIntToWarcraftChampionsInfo();
 
             UDPListenerBytesToIID udpListener = new UDPListenerBytesToIID(6999);
@@ -180,7 +187,10 @@ namespace ClientQA.TeacherCode
 
 
             //}
-            string championId = "1402-0AF12064";
+
+
+
+            string championId = "0AFCAB54";
 
             while (true)
             {
@@ -205,6 +215,25 @@ namespace ClientQA.TeacherCode
 
                     switch (word)
                     {
+                        case "Northshire":
+
+                            string targetAlias = "NorthshireRetailPath";
+                            folderToPathAndPoints.GetWowPathPointsFromExactAlias(targetAlias,
+                                out List<WowPointsPathFile> pathFiles);
+
+                            foreach (WowPointsPathFile pathFile in pathFiles)
+                            {
+
+                                Console.WriteLine($"Path: {pathFile.m_fileNameAlias} {pathFile.m_fileFullPath} ");
+                                Console.WriteLine(pathFile.m_positions.Count());
+                                foreach (WowWorldPosition position in pathFile.m_positions)
+                                {
+                                    Console.WriteLine($"Position: {position}");
+                                }
+                                champion.MoveFromToWalkPath(champFound, pathFile.m_positions);
+                            }
+
+                            break;
                         case "gotomap":
                             ConsoleWowCoord.MoveBetweenTwoWorldPoints(
                                 champion

@@ -1,4 +1,6 @@
-﻿namespace ClientQA.TeacherCode.CoordinateWow
+﻿using Eloi.Toolbox;
+
+namespace ClientQA.TeacherCode.CoordinateWow
 {
     /// <summary>
     /// I am a class storing the position in world game engine position.
@@ -25,5 +27,15 @@
         public double m_yDownToUp;
 
 
+
+        public override string ToString()
+        {
+            return $"X: {m_xRightToleft}, Y: {m_yDownToUp}";
+        }
+
+        public void GetAsUnityVector2(out UnityVector2 vector)
+        {
+            vector = new UnityVector2((float)m_xRightToleft, (float)m_yDownToUp);
+        }
     }
 }

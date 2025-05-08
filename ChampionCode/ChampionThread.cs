@@ -4,6 +4,7 @@ using ClientQA.LearningExample.Basic;
 using ClientQA.TeacherCode.CoordinateWow;
 using ClientQA.UtilityCode;
 using Eloi.Toolbox;
+using XboxClientQA.UWCMirror;
 
 //public class WowCalculator {
 
@@ -749,6 +750,23 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
 
     }
 
+    public void MoveFromToWalkPath(UWCChampionInfo championInfo, WowWorldPosition[] positions, float waitTimeBetweenPointsSeconds=1.2f)
+    {
+        if (championInfo == null)
+        {
+
+            Console.WriteLine("Not champion given");
+            return;
+        }
+        for (int i = 0; i < positions.Length; i++)
+        {
+            float angle = championInfo.m_angle360;
+            WowWorldPosition origin= new WowWorldPosition(championInfo.m_worldX, championInfo.m_worldY);
+            WowWorldPosition destination = positions[i];
+            MoveFromToWalk(angle, origin,destination);
+            WaitSomeMilliseconds((int)(waitTimeBetweenPointsSeconds * 1000f));
+        }
+    }
 }
 
 

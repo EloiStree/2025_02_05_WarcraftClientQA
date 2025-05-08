@@ -131,6 +131,13 @@ namespace XboxClientQA.UWCMirror
                         m_playerAsInteger[playerIndexTag].m_i17TargetPowerPercent = powerPercent;
                         m_championsFromInteger[playerIndexTag].m_targetPowerPercent = powerPercent / 10000f;
                     }
+                    else if (dataType == 21)
+                    {
+                        int xpModulo = value % 1000000;
+                        m_playerAsInteger[playerIndexTag].m_i21TargetXpModulo999999 = xpModulo;
+                        m_championsFromInteger[playerIndexTag].m_targetModulo999999 = xpModulo ;
+                    }
+
                     else if (dataType == 18)
                     {
 
@@ -146,7 +153,7 @@ namespace XboxClientQA.UWCMirror
 
                         int windowHandle = value % 1000000;
                         m_playerAsInteger[playerIndexTag].m_i19TargetWindowHandle = windowHandle;
-                        m_championsFromInteger[playerIndexTag].m_targetWindowHandlePart2 = windowHandle ;
+                        m_championsFromInteger[playerIndexTag].m_targetWindowHandlePart2 = windowHandle;
                         m_championsFromInteger[playerIndexTag].m_targetWindowHandleComplete =
                           m_championsFromInteger[playerIndexTag].m_targetWindowHandlePart1
                           + m_championsFromInteger[playerIndexTag].m_targetWindowHandlePart2 * 1000000;

@@ -25,6 +25,7 @@
         public int m_i17TargetPowerPercent;
         internal int m_i18TargetWindowHandle;
         internal int m_i19TargetWindowHandle;
+        internal int m_i21TargetXpModulo999999;
     }
 
 }

@@ -62,11 +62,11 @@ namespace ClientQA.TeacherCode
             UDPListenerBytesToIID udpListener = new UDPListenerBytesToIID(6999);
             udpListener.AddBytesReceivedHandler(listenToGameInfo.PushInBytesIID);
 
-            //WssTrustedWebsocketIIDThread listener = new WssTrustedWebsocketIIDThread(listernServerUrl);
-            //listener.AddBytesReceivedHandler(listenToGameInfo.PushInBytesIID);
+            WssTrustedWebsocketIIDThread listener = new WssTrustedWebsocketIIDThread(listernServerUrl);
+            listener.AddBytesReceivedHandler(listenToGameInfo.PushInBytesIID);
 
             ChampionThread champion = new ChampionThread(pushUdpServerUrl, pushUdpServerPort, playerIndex);
-            string championId = "1402-0AFC1A03";
+            string championId = "1402-0AF2313B";
 
             while (true)
             {
@@ -103,6 +103,8 @@ namespace ClientQA.TeacherCode
                             }
                             break;
                         case "r90":
+
+                            Console.WriteLine(champ.GetMultilineDescription());
                             champion.RotationForLeftRightAngle(90);
                             break;
                         case "m20":

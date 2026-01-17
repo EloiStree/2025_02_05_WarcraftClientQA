@@ -1,4 +1,5 @@
-﻿namespace XboxClientQA.UWCMirror
+﻿
+namespace XboxClientQA.UWCMirror
 {
     /// <summary>
     /// I am a class that present received data from the game from int format in more readable value
@@ -34,6 +35,10 @@
         public float m_targetSpellLoading;
         public float m_targetLifePercent;
         public float m_targetPowerPercent;
+        public int m_targetWindowHandleComplete;
+        public int m_targetWindowHandlePart1;
+        public int m_targetWindowHandlePart2;
+        internal int m_targetModulo999999;
 
         public void UpdatePlayerIdFocusing()
         {
@@ -128,15 +133,23 @@
         {
             return $@"
 ID({m_tagInListIndex}|{m_playerLevel})-{m_playerIdFFFFHHHHHHHH}
+Window Handle: {m_targetWindowHandleComplete}
 Target {m_targetFFFFHHHHHHHH}
 Map: {m_mapX} ,{m_mapY} , {m_angle360} 
 World: {m_worldX} , {m_worldY} 
 Life: {m_playerLifePercent} 
 XP: {m_playerXpPercent}
+XP Modulo: {m_targetModulo999999}
 Target:{m_targetLifePercent} {m_targetPowerPercent} {m_targetLevel}
 Pet: {m_partyPetLifePercent} 
 Party:  {m_partyAlly1LifePercent} {m_partyAlly2LifePercent} {m_partyAlly3LifePercent} {m_partyAlly4LifePercent} 
 ";
+        }
+
+        public int GetWindowHandle()
+        {
+                return m_targetWindowHandleComplete;
+            
         }
     }
 

@@ -1,7 +1,10 @@
 ﻿
 using System.Numerics;
+using ClientQA.LearningExample.Basic;
 using ClientQA.TeacherCode.CoordinateWow;
 using ClientQA.UtilityCode;
+using Eloi.Toolbox;
+using XboxClientQA.UWCMirror;
 
 //public class WowCalculator {
 
@@ -45,6 +48,9 @@ public partial class ChampionThread {
             if (found)
                 Console.WriteLine("E:" + command);
         });
+
+
+
     }
 
 
@@ -648,7 +654,119 @@ snicker,sniff,snub,sob,soothe,sorry,spit".Replace("\n", "").Replace("\r", "").Re
         }
     }
 
-    
+    public void GetWalkSpeedByDefault(out float leftFrontRightSpeed, out float backwardSpeed)
+    {
+        leftFrontRightSpeed = m_speedMoveForward;
+        backwardSpeed = m_speedMoveBackward;
+    }
+
+    public float m_speedMoveForwardSteadyFly = 225f / 10f;
+    public float m_speedMoveBackSteady = 4f;
+
+    public void GetSteadyFlySpeedByDefault(out float leftFrontRightSpeed, out float backwardSpeed)
+    {
+        leftFrontRightSpeed = m_speedMoveForwardSteadyFly;
+        backwardSpeed = m_speedMoveBackSteady;
+    }
+
+    public void PushIntegerToTarget(int index, int value)
+    {
+        m_sender.PushInteger(index, value);
+    }
+
+    public void MoveFromTo(
+        float currentAngle,
+        WowWorldPosition origin,
+        WowWorldPosition destination,
+        float moveForwardSpeed,
+        float rotateAnglePerSeconds)
+    {
+        WowWorldPositionUtility.ComputeWowAngleFrom(origin, destination, out float angleDestination);
+        WowSetToDirectionAngle.ComputeDirectionFromTo(
+        currentAngle, angleDestination,
+        out bool isRight, out float angleToRotate);
+
+        RotationDirection rotationDirection = isRight ? RotationDirection.Right : RotationDirection.Left;
+        int millisecondsToRotate = (int)((angleToRotate / rotateAnglePerSeconds) * 1000);
+        if (rotationDirection == RotationDirection.Left)
+        {
+            StartRotateLeft();
+            WaitSomeMilliseconds(millisecondsToRotate);
+            StopRotateLeft();
+        }
+        else
+        {
+           StartRotateRight();
+           WaitSomeMilliseconds(millisecondsToRotate);
+           StopRotateRight();
+        }
+        WowWorldPositionUtility.ComputeDistance(origin, destination, out double distances);
+        int millisecondsMoveForward =(int)(( distances / (double)moveForwardSpeed) * 1000f);
+
+        StartMovingForward();
+        WaitSomeMilliseconds(millisecondsMoveForward);
+        StopMovingForward();
+    }
+
+
+
+    public void TranslateInSeconds(UnityVector2 localDirectionInSeconds)
+    {
+
+        MoveChampionTools.TranslateInSeconds(this, localDirectionInSeconds);
+    }
+    public void TranslateInDistanceWalk(UnityVector2 localDirectionInSeconds)
+    {
+
+        MoveChampionTools.TranslateInDistance(this, localDirectionInSeconds, m_speedMoveForward, m_speedMoveBackward);
+    }
+    public void TranslateInDistanceSteadyFly(UnityVector2 localDirectionInSeconds)
+    {
+        MoveChampionTools.TranslateInDistance(this, localDirectionInSeconds, m_speedMoveForwardSteadyFly, m_speedMoveBackSteady);
+    }
+    public  void TranslateOfDistanceWalkSequence( params UnityVector2[] directions)
+    {
+        foreach (var direction in directions)
+        {
+            TranslateInDistanceWalk( direction);
+        }
+    }
+    public  void TranslateOfDistanceSteadyFlySequence( params UnityVector2[] directions)
+    {
+        foreach (var direction in directions)
+        {
+            TranslateInDistanceSteadyFly( direction);
+        }
+    }
+
+    public void MoveFromToWalk(float angle, WowWorldPosition origin, WowWorldPosition destination)
+    {
+        MoveFromTo(angle, origin, destination, this.m_speedMoveForward, m_rotationAngle);
+
+    }
+    public void MoveFromToSteadyFly(float angle, WowWorldPosition origin, WowWorldPosition destination)
+    {
+        MoveFromTo(angle, origin, destination, this.m_speedMoveForwardSteadyFly, m_rotationAngle);
+
+    }
+
+    public void MoveFromToWalkPath(UWCChampionInfo championInfo, WowWorldPosition[] positions, float waitTimeBetweenPointsSeconds=1.2f)
+    {
+        if (championInfo == null)
+        {
+
+            Console.WriteLine("Not champion given");
+            return;
+        }
+        for (int i = 0; i < positions.Length; i++)
+        {
+            float angle = championInfo.m_angle360;
+            WowWorldPosition origin= new WowWorldPosition(championInfo.m_worldX, championInfo.m_worldY);
+            WowWorldPosition destination = positions[i];
+            MoveFromToWalk(angle, origin,destination);
+            WaitSomeMilliseconds((int)(waitTimeBetweenPointsSeconds * 1000f));
+        }
+    }
 }
 
 

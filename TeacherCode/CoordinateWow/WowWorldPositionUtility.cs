@@ -108,5 +108,33 @@ namespace ClientQA.TeacherCode.CoordinateWow
                 angleDestination = (float)inWowDegree;
             }
         }
+
+        public static void LoadFromFileWorldPoints(string absolutePath,
+            out List<WowWorldPosition> positions)
+        {
+            if (!File.Exists(absolutePath))
+            {
+                positions = new List<WowWorldPosition>();
+                return;
+            }
+
+            positions = new List<WowWorldPosition>();
+            string text = System.IO.File.ReadAllText(absolutePath);
+            string[] lines = text.Split('\n');
+            foreach (string line in lines)
+            {
+                string[] cells = line.Split(";");
+                if (cells.Length < 2)
+                    continue;
+
+                if (double.TryParse(cells[0], out double x) && double.TryParse(cells[1], out double y))
+                {
+                    if (x != 0f || y != 0f)
+                    {
+                        positions.Add(new WowWorldPosition(x, y)); // Use Add instead of Append
+                    }
+                }
+            }
+        }
     }
 }
